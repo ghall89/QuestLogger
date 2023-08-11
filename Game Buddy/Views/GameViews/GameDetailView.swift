@@ -86,6 +86,17 @@ struct GameDetailView: View {
 								}, label: {
 									Text(LocalizedStringKey(selectedGame.status?.rawValue ?? "Status"))
 								})
+								Menu(content: {
+									ForEach(gameDetails?.platforms ?? []) { platform in
+										Button(platform.abbreviation ?? platform.name, action: {
+											let platformString = platform.abbreviation ?? platform.name
+											updateGamePlatform(id: selectedGame.id, collection: &observableCollection.collection, platform: platformString)
+										})
+									}
+										
+								}, label: {
+									Text(selectedGame.platform ?? "Platform")
+								})
 							}
 						}
 						.padding()

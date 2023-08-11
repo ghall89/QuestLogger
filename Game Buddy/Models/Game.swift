@@ -8,7 +8,7 @@ struct Game: Codable, Identifiable, Equatable {
 	var in_collection: Bool? = false
 	var status: Status?
 	var status_date: Date?
-	var platform: Platform?
+	var platform: String?
 //	var folders: [Folder]?
 	static func == (lhs: Game, rhs: Game) -> Bool {
 		return lhs.id == rhs.id &&
