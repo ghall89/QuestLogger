@@ -1,0 +1,71 @@
+// UI
+"game_search_field" = "Find a game";
+"search" = "Games";
+"update_status" = "Update Status";
+"add_game" = "Add Game";
+"in_collection" = "In Collection";
+"delete" = "Delete";
+"remove" = "Remove";
+"archive" = "Archive";
+"edit" = "Edit";
+"cancel" = "Cancel";
+"view_all" = "View All";
+"folder_exists" = "A folder with that name already exists in your collection. Try a different name.";
+"add_to_folder" = "Add to Folder";
+
+// delete confirmation
+"confirmDeleteTitle" = "Are you sure?";
+"confirmDeleteMessage" = "You will lose all personal data about this game.";
+
+// no internet alert
+"noInternetTitle" = "You are not connected to the internet";
+"noInternetMessage" = "Game Buddy requires an internet connection to search for games. Make sure airplane mode is off, and that you're connected to a cellular or wi-fi network.";
+
+// settings
+"settings" = "Settings";
+"view_archived" = "Archived Games";
+"export_data" = "Export Collection";
+"restore_data" = "Import Collection";
+"haptics" = "Haptic Feedback";
+"shake-gesture" = "Shake Gestures";
+"backup_collection" = "Backup Collection";
+"restore_collection" = "Restore Collection";
+"about" = "About";
+"version" = "Version";
+"open_source_credits" = "Open Source Packages";
+
+// theme
+"accent_color" = "Accent Color";
+"color_scheme" = "Light/Dark Mode";
+"theme" = "Theme";
+"system" = "System";
+"light" = "Light Mode";
+"dark" = "Dark Mode";
+"fab_position" = "Action Button Alignment";
+
+// statuses
+"wishlist" = "Wishlist";
+"backlog" = "Backlog";
+"now_playing" = "Now Playing";
+"finished" = "Finished";
+"archived" = "Archived";
+
+// categories
+"new_releases" = "New Releases";
+"coming_soon" = "Coming Soon";
+"popular" = "Popular";
+
+// sorting options
+"latest_started" = "Latest Started";
+"oldest_started" = "Oldest Started";
+"alphabetical" = "Alphabetical";
+"reverse_alphabetical" = "Reverse Alphabetical";
+"latest_first" = "Latest Added";
+"oldest_first" = "Oldest Added";
+
+// misc
+"release_date" = "Release Date";
+"details" = "Details";
+"platforms" = "Platforms";
+"genres" = "Genres";
+"folders" = "Folders";

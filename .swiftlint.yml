@@ -1,0 +1,9 @@
+disabled_rules:
+  - identifier_name
+  - switch_case_alignment
+line_length:
+  - 200 # warning
+  - 300 # error
+file_length:
+  warning: 500
+  error: 1200
