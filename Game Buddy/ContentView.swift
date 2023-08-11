@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct AppNavView: View {
+struct ContentView: View {
 	@State private var navigationPath: [Int] = []
 	@State private var isActive = false
 	@EnvironmentObject var observableGameDetails: ObservableGameDetails
@@ -21,37 +21,7 @@ struct AppNavView: View {
 
 	var body: some View {
 		NavigationView {
-				CollectionView()
-//			ZStack {
-//				VStack {
-//					Spacer()
-//					HStack {
-//						if fabPosition == "right" {
-//							Spacer()
-//						}
-//						Circle()
-//							.frame(width: 62)
-//							.foregroundColor(.accentColor)
-//							.overlay(content: {
-//								IconSVG(icon: "plus-lg", size: .large)
-//									.foregroundColor(.white)
-//							})
-//							.background(NavigationLink(
-//								destination: SearchView(),
-//								isActive: $isActive,
-//								label: {
-//								EmptyView()
-//							}))
-//							.padding()
-//							.onTapGesture(perform: {
-//								isActive.toggle()
-//							})
-//						if fabPosition == "left" {
-//							Spacer()
-//						}
-//					}
-//				}
-//			}
+			SidebarView()
 		}
 		.sheet(isPresented: $observableGameDetails.detailSliderOpen) {
 			if let selectedGame = selectedGameBinding {

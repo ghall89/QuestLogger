@@ -59,9 +59,9 @@ struct NewFolderView: View {
 	}
 
 	var body: some View {
-		NavigationStack {
-			Form {
-				Section {
+
+			VStack {
+				
 					VStack {
 						Circle()
 							.accentPickerColor(folder.color)
@@ -77,31 +77,8 @@ struct NewFolderView: View {
 						.multilineTextAlignment(.center)
 						.submitLabel(.done)
 					}
-				}
-				Section("Color") {
-					ScrollView(.horizontal, showsIndicators: false) {
-						LazyHGrid(rows: [GridItem(.flexible(minimum: 0, maximum: .infinity))]) {
-							ForEach(colors, id: \.self) {color in
-								Button(action: {
-									folder.color = color
-								}, label: {
-									Circle()
-										.accentPickerColor(color)
-										.frame(width: 34)
-								})
-								.overlay {
-									if folder.color == color {
-										IconSVG(icon: "check", size: .small)
-									}
-								}
-							}
-						}
-						.padding(.horizontal, 25)
-						.padding(.vertical, 10)
-					}
 
-				}
-				Section("Icon") {
+
 					LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 5), spacing: 18) {
 						ForEach(iconOptions, id: \.self) { option in
 							IconSVG(icon: option, size: .large)
@@ -111,8 +88,8 @@ struct NewFolderView: View {
 								}
 						}
 					}
-				}
-				Section {
+				
+
 					ForEach(folder.games, id: \.self) { gameId in
 						if let game = observableCollection.collection.first(where: { $0.id == gameId }) {
 							Text(game.name).swipeActions {
@@ -122,7 +99,7 @@ struct NewFolderView: View {
 							}
 						}
 					}
-				}
+				
 			}
 			.onAppear(perform: {
 				if folderId != nil {
@@ -160,4 +137,4 @@ struct NewFolderView: View {
 			}
 		}
 	}
-}
+
