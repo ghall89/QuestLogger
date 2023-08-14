@@ -7,41 +7,24 @@ func savePrefAsString(key: String, value: String) {
 }
 
 struct SettingsView: View {
-	@AppStorage("twitchClientID") var clientID: String = ""
-	@AppStorage("twitchClientSecret") var clientSecret: String = ""
+	private enum Tabs: Hashable {
+		case twitchAPI, appearance
+	}
 	
 	var body: some View {
-		VStack {
-			TextField(text: $clientID, label: {
-				Text("Client ID")
-			})
-			TextField(text: $clientSecret, label: {
-				Text("Client Secret")
-			})
-			
-			Link(destination: URL(string: "https://dev.twitch.tv/login")!, label: {
-				Text("Twitch Dev Portal")
-			})
-			
-			//			ThemePickerView()
-			
-			//			Button(action: {
-			//				exportCollection()
-			//			}, label: {
-			//				Text(LocalizedStringKey("backup_collection"))
-			//			})
-			//							Button(action: {
-			//								print("You clicked the Restore button")
-			//							}, label: {
-			//								HStack {
-			//									IconSVG(icon: "upload").padding(.trailing, 10)
-			//									Text(LocalizedStringKey("restore_collection"))
-			//								}
-			//							})
-			//
-			
-			
+		TabView {
+			APIView()
+				.tabItem {
+					Label("Twitch API", systemImage: "server.rack")
+				}
+				.tag(Tabs.twitchAPI)
+			ThemePickerView()
+				.tabItem {
+					Label("Appearance", systemImage: "paintbrush")
+				}
+				.tag(Tabs.appearance)
 		}
-		.padding()
+		.padding(20)
+		.frame(width: 375, height: 150)
 	}
 }

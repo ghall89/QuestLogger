@@ -2,11 +2,11 @@ import SwiftUI
 import SwiftfulLoadingIndicators
 
 struct SearchView: View {
-
 	@Environment(\.presentationMode) var presentationMode
+	
+	@Binding var searchString: String
 
 	@State var gameList: Array = [Game]()
-	@State var searchString: String = ""
 	@FocusState private var searchFieldFocused: Bool
 	@State private var searchTimer: Timer?
 	@State private var loading: Bool = false
@@ -51,7 +51,6 @@ struct SearchView: View {
 			}
 		}
 		.navigationTitle(LocalizedStringKey("search"))
-		.searchable(text: $searchString)
 		.onChange(of: searchString) { _ in
 			loading = true
 			searchTimer?.invalidate()

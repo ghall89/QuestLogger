@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct ContentView: View {
-	@State private var navigationPath: [Int] = []
-	@State private var isActive = false
+	@AppStorage("twitchClientID") var clientID: String = ""
+	@AppStorage("twitchClientSecret") var clientSecret: String = ""
 	@EnvironmentObject var observableGameDetails: ObservableGameDetails
 	@EnvironmentObject var observableCollection: ObservableCollection
-	@AppStorage("colorTheme") var colorTheme: String = "blue"
-	@AppStorage("fabPostion") var fabPosition: String = "right"
 
+	@State private var apiAlert: Bool = false
+	
 	private var selectedGameBinding: Binding<Game>? {
 		guard let selectedGame = observableGameDetails.selectedGame else { return nil }
 		if selectedGame.in_collection == true {
@@ -26,7 +26,21 @@ struct ContentView: View {
 		.sheet(isPresented: $observableGameDetails.detailSliderOpen) {
 			if let selectedGame = selectedGameBinding {
 				GameDetailView(selectedGame: selectedGame).environmentObject(observableCollection)
-					.userAccentColor(colorTheme)
+			}
+		}
+		.alert("Missing API Keys", isPresented: $apiAlert, actions: {
+			Button("Settings", action: {
+				NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+			})
+			Button("Cancel", action: {
+				apiAlert.toggle()
+			})
+		}, message: {
+			Text("Using this app's full functionality requires a valid Client ID and Client Secret from a Twitch developer account. You can add these or get more info in Settings.")
+		})
+		.onAppear {
+			if clientID == "" || clientSecret == "" {
+				apiAlert.toggle()
 			}
 		}
 	}

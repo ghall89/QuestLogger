@@ -9,14 +9,24 @@ struct FolderLinkView: View {
 	var folderId: UUID?
 
 	@State var filteredGames = [Game]()
+	
+	private func isValidCategory(string: String) -> Bool {
+		let allCategories: [Category] = [.wishlist, .backlog, .nowPlaying, .finished, .archived]
+		
+		return allCategories.contains { category in
+			string == category.status
+		}
+	}
 
 	private func setFilteredGames() {
 		if folderId != nil {
 			if let gameIds = customCollections.first(where: {$0.id == folderId})?.games {
 				filteredGames = observableCollection.collection.filter {gameIds.contains($0.id)}
 			}
-		} else {
+		} else if isValidCategory(string: category) {
 			filteredGames = observableCollection.collection.filter {$0.status == Game.Status(rawValue: category)}
+		} else {
+			filteredGames = observableCollection.collection.filter {$0.platform == category}
 		}
 	}
 

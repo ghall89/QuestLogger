@@ -10,22 +10,14 @@ struct GameDetailView: View {
 	
 	@Binding var selectedGame: Game
 	
-	@State var loading: Bool = true
+	@State private var loading: Bool = true
 	@State private var gameDetails: GameDetails?
 	@State private var isImageLoaded = false
-	@State var showingAlert: Bool = false
-	@State private var wideButton: Bool = false
+	@State private var showingAlert: Bool = false
+	
 	
 	func dismissSheet() {
 		self.presentationMode.wrappedValue.dismiss()
-	}
-	
-	func setButtonWidth(status: Game.Status?) {
-		if status != nil {
-			wideButton = true
-		} else {
-			wideButton = false
-		}
 	}
 	
 	var body: some View {
@@ -93,7 +85,6 @@ struct GameDetailView: View {
 											updateGamePlatform(id: selectedGame.id, collection: &observableCollection.collection, platform: platformString)
 										})
 									}
-										
 								}, label: {
 									Text(selectedGame.platform ?? "Platform")
 								})
@@ -108,10 +99,11 @@ struct GameDetailView: View {
 			HStack() {
 				Button(action: dismissSheet, label: {
 					Image(systemName: "xmark.circle.fill")
-						.frame(width: 20)
+						.font(.title2)
 				})
 				.buttonStyle(.plain)
 				.padding()
+				.focusable(false)
 				Spacer()
 			}
 		}

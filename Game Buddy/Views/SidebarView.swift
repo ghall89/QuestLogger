@@ -21,65 +21,87 @@ extension Array: RawRepresentable where Element: Codable {
 }
 
 struct SidebarView: View {
+	@Environment(\.isSearching) private var isSearching
+	@EnvironmentObject var observableCollection: ObservableCollection
+	
 	@AppStorage("customCollections") var customCollections: [Folder] = []
 	@AppStorage("sidebarSelection") var sidebarSelection: String = "backlog"
-	@State var collectionSearch: String = ""
-	@State private var showNewFolder: Bool = false
-	@State var folderToEdit: UUID?
 	
-	let categories: [Category] = [.wishlist, .backlog, .nowPlaying, .finished, .archived]
+	@State private var searchString: String = ""
+	@State private var showNewFolder: Bool = false
+	@State private var folderToEdit: UUID?
+	@State private var platforms: [String] = []
+	
+	private let categories: [Category] = [.wishlist, .backlog, .nowPlaying, .finished, .archived]
 	
 	var body: some View {
-		
-		List(selection: $sidebarSelection) {
-			NavigationLink(destination: {
-				SearchView()
-			}, label: {
-				Label("Search Games", systemImage: "magnifyingglass")
-			})
-			.id("search")
-			Section("Library") {
-				ForEach(categories, id: \.self.status) { category in
-					FolderLinkView(category: category.status, icon: category.icon)
+			List(selection: $sidebarSelection) {
+//				NavigationLink(destination: {
+//					SearchView(searchString: $searchString)
+//				}, label: {
+//					TextField(text: $searchString, label: {
+//						Label("Search...", systemImage: "search")
+//					})
+//					.textFieldStyle(.roundedBorder)
+//				})
+//				.buttonStyle(.plain)
+//				.tag("search")
+				
+				Section("Library") {
+					ForEach(categories, id: \.self.status) { category in
+						FolderLinkView(category: category.status, icon: category.icon)
+					}
 				}
-			}
-			if customCollections.count >= 1 {
-				Section("Folders") {
-					ForEach(customCollections) { folder in
-						FolderLinkView(category: folder.name, icon: folder.icon, folderId: folder.id)
-							.contextMenu(menuItems: {
-								Button(action: {
-									folderToEdit = folder.id
-									showNewFolder.toggle()
-								}, label: {
-									Text(LocalizedStringKey("edit"))
-									IconSVG(icon: "pencil")
+				.collapsible(false)
+				
+				if platforms.count >= 1 {
+					Section("Platforms") {
+						ForEach(platforms, id: \.self) { platform in
+							FolderLinkView(category: platform, icon: "folder.fill")
+						}
+					}
+				}
+				if customCollections.count >= 1 {
+					Section("Folders") {
+						ForEach(customCollections) { folder in
+							FolderLinkView(category: folder.name, icon: folder.icon, folderId: folder.id)
+								.contextMenu(menuItems: {
+									Button(action: {
+										folderToEdit = folder.id
+										showNewFolder.toggle()
+									}, label: {
+										Text(LocalizedStringKey("edit"))
+										IconSVG(icon: "pencil")
+									})
+									Button(role: .destructive, action: {
+										if let folderIndex = customCollections.firstIndex(where: { $0.id == folder.id }) {
+											customCollections.remove(at: folderIndex)
+										}
+									}, label: {
+										Text(LocalizedStringKey("delete"))
+										IconSVG(icon: "trash")
+									})
 								})
-								Button(role: .destructive, action: {
-									if let folderIndex = customCollections.firstIndex(where: { $0.id == folder.id }) {
-										customCollections.remove(at: folderIndex)
-									}
-								}, label: {
-									Text(LocalizedStringKey("delete"))
-									IconSVG(icon: "trash")
-								})
-							})
+						}
 					}
 				}
 			}
-		}
-		.toolbar {
-			ToolbarItem {
-				Button(action: {
+			.frame(minWidth: 200)
+			.searchable(text: $searchString)
+//		.toolbar {
+//			ToolbarItem(content: {
+//				Button(action: {
 //					showNewFolder.toggle()
-				}, label: {
-					Image(systemName: "folder.badge.plus")
-				})
-				
-			}
-		}
-		.sheet(isPresented: $showNewFolder) {
-			NewFolderView(showNewFolder: $showNewFolder, folderId: $folderToEdit)
+//				}, label: {
+//					Image(systemName: "folder.badge.plus")
+//				})
+//			})
+//		}
+//		.sheet(isPresented: $showNewFolder) {
+//			NewFolderView(showNewFolder: $showNewFolder, folderId: $folderToEdit)
+//		}
+		.onAppear {
+			platforms = Array(Set(observableCollection.collection.compactMap { $0.platform })).sorted()
 		}
 	}
 }

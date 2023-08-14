@@ -9,7 +9,6 @@ struct FolderView: View {
 	
 	@State private var selectedView: String = "grid"
 	@State private var showViewSortOptions: Bool = false
-	@State private var isMenuOpen: Bool = false
 	
 	@AppStorage("selectedViewSort") var selectedViewSort: String = "alphabetical"
 	
@@ -74,13 +73,20 @@ struct FolderView: View {
 				.animation(.easeInOut, value: games)
 				.animation(.easeInOut, value: selectedViewSort)
 				.padding()
-				.disabled(isMenuOpen)
 			}
 			HStack {
+				Button(action: {
+					getRandomGame()
+				}, label: {
+					Image(systemName: "shuffle")
+				})
+				.disabled(games.isEmpty)
+				.padding()
 				Spacer()
 				Picker("Sort", selection: $selectedViewSort, content: {
 					Text("Alphabetical").tag("alphabetical")
 					Text("Reverse Alphabetical").tag("reverse_alphabetical")
+					Divider()
 					Text("Newest First").tag("latest_first")
 					Text("Oldest First").tag("Oldest_first")
 				})
@@ -92,25 +98,7 @@ struct FolderView: View {
 					.fill(.thickMaterial)
 			})
 		}
-		.overlay {
-			if isMenuOpen {
-				Color.white.opacity(0.001)
-					.ignoresSafeArea()
-					.frame(maxWidth: .infinity, maxHeight: .infinity)
-					.onTapGesture {
-						isMenuOpen = false
-					}
-			}
-		}		
-		.toolbar(content: {
-			ToolbarItem( content: {
-				Button(action: {
-					getRandomGame()
-				}, label: {
-					Image(systemName: "shuffle")
-				})
-				.disabled(games.isEmpty)
-			})
-		})
+		.navigationTitle(category)
 	}
 }
+
