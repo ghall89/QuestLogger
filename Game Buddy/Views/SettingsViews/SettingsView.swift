@@ -18,7 +18,7 @@ struct SettingsView: View {
 					Label("Twitch API", systemImage: "server.rack")
 				}
 				.tag(Tabs.twitchAPI)
-			ThemePickerView()
+			AppearanceView()
 				.tabItem {
 					Label("Appearance", systemImage: "paintbrush")
 				}

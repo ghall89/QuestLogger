@@ -8,6 +8,8 @@ struct GameDetailView: View {
 	@Environment(\.dismiss) var dismiss
 	@Environment(\.presentationMode) var presentationMode
 	
+	@AppStorage("blurBackground") var blurBackground = true
+	
 	@Binding var selectedGame: Game
 	
 	@State private var loading: Bool = true
@@ -28,6 +30,7 @@ struct GameDetailView: View {
 					image
 						.resizable()
 						.aspectRatio(contentMode: .fit)
+						.blur(radius: blurBackground ? 14 : 0, opaque: true)
 						.mask(
 							LinearGradient(gradient: Gradient(colors: [.black.opacity(0.5), .blue.opacity(0)]), startPoint: .top, endPoint: .bottom)
 						)
