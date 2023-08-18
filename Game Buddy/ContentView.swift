@@ -5,7 +5,7 @@ struct ContentView: View {
 	@AppStorage("twitchClientSecret") var clientSecret: String = ""
 	@EnvironmentObject var observableGameDetails: ObservableGameDetails
 	@EnvironmentObject var observableCollection: ObservableCollection
-
+	
 	@Environment(\.isSearching) private var isSearching
 	
 	@AppStorage("selectedCategory") var selectedCategory: String = "backlog"
@@ -22,18 +22,19 @@ struct ContentView: View {
 		}
 		return Binding(get: { selectedGame }, set: { observableGameDetails.selectedGame = $0 })
 	}
-
+	
 	var body: some View {
 		NavigationSplitView(sidebar: {
 			SidebarView(selection: $selectedCategory)
 		}, detail: {
-			if isSearching {
-				Text("Searching")
-			} else {
+			if !searchString.isEmpty {
+				SearchView(searchString: $searchString)
+			}
+			else {
 				FolderDataView(category: $selectedCategory)
 			}
 		})
-		.searchable(text: $searchString)
+		.searchable(text: $searchString, prompt: "Find Games...")
 		.sheet(isPresented: $observableGameDetails.detailSliderOpen) {
 			if let selectedGame = selectedGameBinding {
 				GameDetailView(selectedGame: selectedGame).environmentObject(observableCollection)

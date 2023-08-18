@@ -44,13 +44,14 @@ struct SearchView: View {
 						}
 					}.padding()
 				} else {
-					CategoryView(category: "new_releases")
-					CategoryView(category: "coming_soon")
-					CategoryView(category: "popular")
+					Text("No Results ☹️")
+//					CategoryView(category: "new_releases")
+//					CategoryView(category: "coming_soon")
+//					CategoryView(category: "popular")
 				}
 			}
 		}
-		.navigationTitle(LocalizedStringKey("search"))
+		.navigationTitle("Search")
 		.onChange(of: searchString) { _ in
 			loading = true
 			searchTimer?.invalidate()
