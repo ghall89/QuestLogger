@@ -70,8 +70,6 @@ struct FolderView: View {
 						}
 					}
 				}
-				.animation(.easeInOut, value: games)
-				.animation(.easeInOut, value: selectedViewSort)
 				.padding()
 			}
 			HStack {

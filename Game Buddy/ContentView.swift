@@ -6,6 +6,10 @@ struct ContentView: View {
 	@EnvironmentObject var observableGameDetails: ObservableGameDetails
 	@EnvironmentObject var observableCollection: ObservableCollection
 
+	@Environment(\.isSearching) private var isSearching
+	
+	@AppStorage("selectedCategory") var selectedCategory: String = "backlog"
+	@State private var searchString: String = ""
 	@State private var apiAlert: Bool = false
 	
 	private var selectedGameBinding: Binding<Game>? {
@@ -20,9 +24,16 @@ struct ContentView: View {
 	}
 
 	var body: some View {
-		NavigationView {
-			SidebarView()
-		}
+		NavigationSplitView(sidebar: {
+			SidebarView(selection: $selectedCategory)
+		}, detail: {
+			if isSearching {
+				Text("Searching")
+			} else {
+				FolderDataView(category: $selectedCategory)
+			}
+		})
+		.searchable(text: $searchString)
 		.sheet(isPresented: $observableGameDetails.detailSliderOpen) {
 			if let selectedGame = selectedGameBinding {
 				GameDetailView(selectedGame: selectedGame).environmentObject(observableCollection)

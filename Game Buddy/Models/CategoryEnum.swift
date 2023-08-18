@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-enum Category {
+enum Category: CaseIterable {
 	case wishlist
 	case backlog
 	case nowPlaying
@@ -22,19 +22,6 @@ enum Category {
 				return "archived"
 		}
 	}
-
-//	var color: Color {
-//		switch self {
-//			case .wishlist:
-//				return .blue
-//			case .backlog:
-//				return .red
-//			case .nowPlaying:
-//				return .green
-//			case .finished:
-//				return .orange
-//		}
-//	}
 
 	var icon: String {
 		switch self {

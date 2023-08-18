@@ -21,35 +21,23 @@ extension Array: RawRepresentable where Element: Codable {
 }
 
 struct SidebarView: View {
-	@Environment(\.isSearching) private var isSearching
 	@EnvironmentObject var observableCollection: ObservableCollection
 	
 	@AppStorage("customCollections") var customCollections: [Folder] = []
-	@AppStorage("sidebarSelection") var sidebarSelection: String = "backlog"
 	
-	@State private var searchString: String = ""
+	@Binding var selection: String
+	
 	@State private var showNewFolder: Bool = false
 	@State private var folderToEdit: UUID?
 	@State private var platforms: [String] = []
 	
-	private let categories: [Category] = [.wishlist, .backlog, .nowPlaying, .finished, .archived]
-	
 	var body: some View {
-			List(selection: $sidebarSelection) {
-//				NavigationLink(destination: {
-//					SearchView(searchString: $searchString)
-//				}, label: {
-//					TextField(text: $searchString, label: {
-//						Label("Search...", systemImage: "search")
-//					})
-//					.textFieldStyle(.roundedBorder)
-//				})
-//				.buttonStyle(.plain)
-//				.tag("search")
-				
+			List(selection: $selection) {
 				Section("Library") {
-					ForEach(categories, id: \.self.status) { category in
-						FolderLinkView(category: category.status, icon: category.icon)
+					ForEach(Category.allCases, id: \.self.status) { category in
+						NavigationLink(value: category.status, label: {
+							Label(LocalizedStringKey(category.status), systemImage: category.icon)
+						})
 					}
 				}
 				.collapsible(false)
@@ -57,37 +45,38 @@ struct SidebarView: View {
 				if platforms.count >= 1 {
 					Section("Platforms") {
 						ForEach(platforms, id: \.self) { platform in
-							FolderLinkView(category: platform, icon: "folder.fill")
+							NavigationLink(value: platform, label: {
+								Label(platform, systemImage: "folder.fill")
+							})
 						}
 					}
 				}
-				if customCollections.count >= 1 {
-					Section("Folders") {
-						ForEach(customCollections) { folder in
-							FolderLinkView(category: folder.name, icon: folder.icon, folderId: folder.id)
-								.contextMenu(menuItems: {
-									Button(action: {
-										folderToEdit = folder.id
-										showNewFolder.toggle()
-									}, label: {
-										Text(LocalizedStringKey("edit"))
-										IconSVG(icon: "pencil")
-									})
-									Button(role: .destructive, action: {
-										if let folderIndex = customCollections.firstIndex(where: { $0.id == folder.id }) {
-											customCollections.remove(at: folderIndex)
-										}
-									}, label: {
-										Text(LocalizedStringKey("delete"))
-										IconSVG(icon: "trash")
-									})
-								})
-						}
-					}
-				}
+//				if customCollections.count >= 1 {
+//					Section("Folders") {
+//						ForEach(customCollections) { folder in
+//							FolderLinkView(category: folder.name, icon: folder.icon, folderId: folder.id)
+//								.contextMenu(menuItems: {
+//									Button(action: {
+//										folderToEdit = folder.id
+//										showNewFolder.toggle()
+//									}, label: {
+//										Text(LocalizedStringKey("edit"))
+//										IconSVG(icon: "pencil")
+//									})
+//									Button(role: .destructive, action: {
+//										if let folderIndex = customCollections.firstIndex(where: { $0.id == folder.id }) {
+//											customCollections.remove(at: folderIndex)
+//										}
+//									}, label: {
+//										Text(LocalizedStringKey("delete"))
+//										IconSVG(icon: "trash")
+//									})
+//								})
+//						}
+//					}
+//				}
 			}
 			.frame(minWidth: 200)
-			.searchable(text: $searchString)
 //		.toolbar {
 //			ToolbarItem(content: {
 //				Button(action: {
