@@ -14,8 +14,6 @@ struct AppearanceView: View {
 		var color: Color
 	}
 	
-	var colors = AccentColor.allCases.map { "\($0)" }
-	
 	var body: some View {
 		Form {
 			Toggle("Blur Game Backgrounds", isOn: $blurBackground)

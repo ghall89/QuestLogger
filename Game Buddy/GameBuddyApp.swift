@@ -25,7 +25,6 @@ struct GameBuddyApp: App {
 	var body: some Scene {
 		WindowGroup {
 			ContentView()
-				.userAccentColor(colorTheme)
 				.preferredColorScheme(applyColorScheme(colorScheme: preferredColorScheme))
 				.environmentObject(observableCollection)
 				.environmentObject(observableGameDetails)

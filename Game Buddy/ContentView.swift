@@ -6,8 +6,6 @@ struct ContentView: View {
 	@EnvironmentObject var observableGameDetails: ObservableGameDetails
 	@EnvironmentObject var observableCollection: ObservableCollection
 	
-	@Environment(\.isSearching) private var isSearching
-	
 	@AppStorage("selectedCategory") var selectedCategory: String = "backlog"
 	@State private var searchString: String = ""
 	@State private var apiAlert: Bool = false
