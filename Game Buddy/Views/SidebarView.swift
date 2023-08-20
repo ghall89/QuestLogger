@@ -52,6 +52,7 @@ struct SidebarView: View {
 				}
 			}
 		}
+		.frame(minWidth: 200)
 		.onAppear {
 			platforms = Array(Set(observableCollection.collection.compactMap { $0.platform })).sorted()
 		}

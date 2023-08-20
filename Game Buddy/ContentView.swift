@@ -22,22 +22,29 @@ struct ContentView: View {
 	}
 	
 	var body: some View {
-		NavigationSplitView(sidebar: {
-			SidebarView(selection: $selectedCategory)
-		}, detail: {
-			if !searchString.isEmpty {
-				SearchView(searchString: $searchString)
-			}
-			else {
-				FolderDataView(category: $selectedCategory)
-			}
-		})
+		NavigationSplitView(
+			
+			sidebar: {
+				SidebarView(selection: $selectedCategory)
+			}, content: {
+				if !searchString.isEmpty {
+					SearchView(searchString: $searchString)
+				}
+				else {
+					FolderDataView(category: $selectedCategory)
+				}
+			}, detail: {
+				VStack {
+					if let selectedGame = selectedGameBinding {
+						GameDetailView(selectedGame: selectedGame).environmentObject(observableCollection)
+					} else {
+						Text("No Game Selected")
+							.font(.title)
+					}
+				}
+				.frame(minWidth: 400)
+			})
 		.searchable(text: $searchString, prompt: "Find Games...")
-		.sheet(isPresented: $observableGameDetails.detailSliderOpen) {
-			if let selectedGame = selectedGameBinding {
-				GameDetailView(selectedGame: selectedGame).environmentObject(observableCollection)
-			}
-		}
 		.alert("Missing API Keys", isPresented: $apiAlert, actions: {
 			Button("Settings", action: {
 				NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)

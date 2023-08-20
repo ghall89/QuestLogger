@@ -47,7 +47,7 @@ struct GameDetailView: View {
 			}
 			
 			GeometryReader { geometry in
-				VStack {
+				ScrollView {
 					LazyVStack(alignment: .center) {
 						CachedAsyncImage(url: getImageURL(imageId: selectedGame.cover.image_id)) { image in
 							image.resizable().aspectRatio(contentMode: .fit)
@@ -98,19 +98,7 @@ struct GameDetailView: View {
 					.frame(height: geometry.size.height + 30)
 				}
 			}
-			
-			HStack() {
-				Button(action: dismissSheet, label: {
-					Image(systemName: "xmark.circle.fill")
-						.font(.title2)
-				})
-				.buttonStyle(.plain)
-				.padding()
-				.focusable(false)
-				Spacer()
-			}
 		}
-		.frame(width: 400, height: 500)
 		.onAppear {
 			print("Loading game details...")
 			getGameById(id: selectedGame.id) {result in
