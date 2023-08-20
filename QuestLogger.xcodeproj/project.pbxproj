@@ -181,7 +181,6 @@
 		D35785AC29F98DE00065493F /* SearchViews */ = {
 			isa = PBXGroup;
 			children = (
-				D34CC7372A91AA7300DF363F /* AboutView.swift */,
 				D3D817CA29E6BC1000C010A1 /* SearchView.swift */,
 				D35785B629F98F840065493F /* ResultView.swift */,
 				D34352B129FA008900C55D28 /* CategoryView.swift */,
@@ -303,6 +302,7 @@
 				D35785AE29F98E160065493F /* CollectionViews */,
 				D35785AD29F98E090065493F /* GameViews */,
 				D35785AC29F98DE00065493F /* SearchViews */,
+				D34CC7372A91AA7300DF363F /* AboutView.swift */,
 				D30800AC2A0743000068D4D1 /* SidebarView.swift */,
 				D3CD75282A8696AC0008DC98 /* ExperimentalView.swift */,
 			);

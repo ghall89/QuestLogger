@@ -1,9 +1,21 @@
 import SwiftUI
 
 struct AboutView: View {
+	
+	@Binding var showAboutView: Bool
 
 	var body: some View {
 		VStack {
+			HStack {
+				Button(action: {
+					showAboutView.toggle()
+				}, label: {
+					Image(systemName: "xmark.circle.fill")
+						.font(.system(size: 20))
+				})
+				.buttonStyle(.plain)
+				Spacer()
+			}
 			HStack {
 				VStack {
 					Image(nsImage: NSImage(named: Bundle.main.infoDictionary?["CFBundleIconFile"] as? String ?? "AppIcon") ?? NSImage())
@@ -28,6 +40,11 @@ struct AboutView: View {
 							Text("SwiftfulLoadingIndicators")
 						})
 					}
+					Section("Data Provided By") {
+						Link(destination: URL(string: "https://www.igdb.com")!, label: {
+							Text("IGDB")
+						})
+					}
 				}
 				.frame(width: 240)
 			}
@@ -35,7 +52,6 @@ struct AboutView: View {
 			Text("Made with ❤️ in RI")
 				.padding()
 		}
-		.frame(height: 220)
 		.padding()
 	}
 }
