@@ -5,9 +5,6 @@ import CachedAsyncImage
 struct GameDetailView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
 	
-	@Environment(\.dismiss) var dismiss
-	@Environment(\.presentationMode) var presentationMode
-	
 	@AppStorage("blurBackground") var blurBackground = true
 	
 	@Binding var selectedGame: Game
@@ -16,11 +13,6 @@ struct GameDetailView: View {
 	@State private var gameDetails: GameDetails?
 	@State private var isImageLoaded = false
 	@State private var showingAlert: Bool = false
-	
-	
-	func dismissSheet() {
-		self.presentationMode.wrappedValue.dismiss()
-	}
 	
 	var body: some View {
 		GeometryReader { geometry in
@@ -42,19 +34,17 @@ struct GameDetailView: View {
 						if selectedGame.in_collection != true {
 							Button(action: {
 								addGame(game: selectedGame, collection: &observableCollection.collection, status: "backlog")
-								dismissSheet()
 							}, label: {
 								Text("Add to Library")
 							})
 							Button(action: {
 								addGame(game: selectedGame, collection: &observableCollection.collection, status: "wishlist")
-								dismissSheet()
 							}, label: {
 								Text("Add to Wishlist")
 							})
 						} else {
 							Menu(content: {
-								StatusMenuView(game: $selectedGame, showingAlert: $showingAlert, dismissSheet: dismissSheet)
+								StatusMenuView(game: $selectedGame, showingAlert: $showingAlert)
 							}, label: {
 								Text(LocalizedStringKey(selectedGame.status?.rawValue ?? "Status"))
 							})

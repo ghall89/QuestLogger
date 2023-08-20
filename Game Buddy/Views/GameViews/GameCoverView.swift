@@ -35,7 +35,7 @@ struct GameCoverView: View {
 					}
 					.clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
 					.contextMenu {
-						StatusMenuView(game: $game, showingAlert: $showingAlert, dismissSheet: nil)
+						StatusMenuView(game: $game, showingAlert: $showingAlert)
 					}
 					.prettyShadow(.tiny)
 					Text(game.name)
