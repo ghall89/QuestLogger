@@ -72,6 +72,9 @@ struct FolderView: View {
 				}
 				.padding()
 			}
+			.onTapGesture(perform: {
+				observableGameDetails.selectedGame = nil
+			})
 			HStack {
 				Button(action: {
 					getRandomGame()

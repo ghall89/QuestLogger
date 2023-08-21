@@ -6,16 +6,18 @@ struct GameCoverView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
 	
-	@State var showingAlert: Bool = false
-	@State var isImageLoaded: Bool = false
+	@State private var showingAlert: Bool = false
+	@State private var isImageLoaded: Bool = false
+	@State private var isHovered: Bool = false
 	
 	@Binding var game: Game
+	
+	private let roundedRec: any Shape = RoundedRectangle(cornerRadius: 8, style: .continuous)
 	
 	var body: some View {
 		Button(
 			action: {
 				observableGameDetails.selectedGame = game
-				observableGameDetails.detailSliderOpen.toggle()
 			}, label: {
 				VStack {
 					AsyncImage(url: getImageURL(imageId: game.cover.image_id)) { image in
@@ -33,7 +35,19 @@ struct GameCoverView: View {
 							.aspectRatio(3/4, contentMode: .fill)
 							.frame(maxWidth: .infinity)
 					}
-					.clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+					.clipShape(AnyShape(roundedRec))
+					.opacity(isHovered ? 0.8 : 1)
+					.scaleEffect(isHovered ? 1.01 : 1)
+					.overlay(content: {
+						if game.id == observableGameDetails.selectedGame?.id {
+							AnyShape(roundedRec)
+								.stroke(.blue, lineWidth: 3)
+						}
+					})
+					.animation(.easeInOut(duration: 0.1), value: isHovered)
+					.onHover(perform: { hovering in
+						isHovered.toggle()
+					})
 					.contextMenu {
 						StatusMenuView(game: $game, showingAlert: $showingAlert)
 					}
