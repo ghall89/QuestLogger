@@ -10,7 +10,7 @@ __Important:__ QuestLogger is considered in early alpha.
 
 Follow the instructions [here](https://api-docs.igdb.com/#account-creation) if you don't already have a Twitch developer account.
 
-In order to fully use the app, you will need to enter your Twitch client ID and client secret by going to `QuestLogger → Settings...` in the app's menu bar, or with the following keyboard shortcut: `⌘ + '`.
+In order to fully use the app, you will need to enter your Twitch client ID and client secret by going to `QuestLogger → Settings...` in the app's menu bar, or with the following keyboard shortcut: `⌘ + ,`.
 
 ## Compile From Source
 
