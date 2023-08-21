@@ -6,7 +6,6 @@ struct StatusMenuView: View {
 
 	@Binding var game: Game
 	@Binding var showingAlert: Bool
-	let dismissSheet: (() -> Void)?
 
 	private func addToFolder(selectedFolder: Folder) {
 		if let index = customCollections.firstIndex(where: { $0.id == selectedFolder.id }) {

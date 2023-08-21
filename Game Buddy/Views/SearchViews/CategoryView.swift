@@ -12,7 +12,7 @@ struct CategoryItemView: View {
 			.frame(maxWidth: .infinity, minHeight: 75)
 			.overlay(alignment: .leading) {
 				HStack {
-					IconSVG(icon: icon, size: .large)
+					Image(systemName: "folder")
 						.foregroundColor(.white)
 					Spacer()
 					Text(LocalizedStringKey(label))

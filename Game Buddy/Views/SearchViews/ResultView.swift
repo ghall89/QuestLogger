@@ -19,7 +19,7 @@ struct ResultView: View {
 		ZStack {
 			GameCoverView(game: displayGame).id(displayGame.id)
 			if displayGame.wrappedValue.in_collection == true {
-				IconSVG(icon: "circle-check-filled")
+				Image(systemName: "checkmark.circle.fill")
 					.shadow(radius: 6)
 					.foregroundColor(.green)
 					.background(content: {

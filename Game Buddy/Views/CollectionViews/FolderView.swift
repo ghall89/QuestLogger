@@ -72,6 +72,9 @@ struct FolderView: View {
 				}
 				.padding()
 			}
+			.onTapGesture(perform: {
+				observableGameDetails.selectedGame = nil
+			})
 			HStack {
 				Button(action: {
 					getRandomGame()
@@ -90,14 +93,14 @@ struct FolderView: View {
 				})
 				.frame(width: 200)
 				.padding()
-				Picker(selection: $selectedView, content: {
-					Image(systemName: "rectangle.grid.3x2").tag("grid")
-					Image(systemName: "list.bullet").tag("list")
-					
-				}, label: {})
-				.pickerStyle(.segmented)
-				.padding()
-				.frame(width: 120)
+//				Picker(selection: $selectedView, content: {
+//					Image(systemName: "rectangle.grid.3x2").tag("grid")
+//					Image(systemName: "list.bullet").tag("list")
+//					
+//				}, label: {})
+//				.pickerStyle(.segmented)
+//				.padding()
+//				.frame(width: 120)
 			}
 			.background(content: {
 				Rectangle()
