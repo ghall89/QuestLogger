@@ -10,6 +10,8 @@ struct Game: Codable, Identifiable, Equatable {
 	var status_date: Date?
 	var platform: String?
 //	var folders: [Folder]?
+	var rating: Int?
+	var notes: String?
 	static func == (lhs: Game, rhs: Game) -> Bool {
 		return lhs.id == rhs.id &&
 		lhs.in_collection == rhs.in_collection &&
@@ -27,6 +29,8 @@ struct Game: Codable, Identifiable, Equatable {
 		case status_date
 		case platform
 //		case folders
+		case rating
+		case notes
 	}
 
 	enum Status: String, Codable {

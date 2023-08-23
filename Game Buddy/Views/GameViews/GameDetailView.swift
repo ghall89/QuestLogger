@@ -2,6 +2,52 @@ import SwiftUI
 import SwiftfulLoadingIndicators
 import CachedAsyncImage
 
+struct AddGameView: View {
+	@EnvironmentObject var observableCollection: ObservableCollection
+	@Binding var showAddGame: Bool
+	var game: Game
+	
+	@State private var selectedStatus: Category = .backlog
+	@State var gameDetails: GameDetails?
+	@State var selectedPlatform: String = ""
+	
+	var body: some View {
+		VStack(spacing: 20) {
+			Picker("Status", selection: $selectedStatus, content: {
+				ForEach(Category.allCases, id: \.self.status, content: {category in
+					Text(LocalizedStringKey(category.status)).tag(category)
+				})
+			})
+			PlatformPickerView(selectedPlatform: $selectedPlatform, game: game, gameDetails: gameDetails)
+			HStack {
+				Spacer()
+				Button(action: {
+					showAddGame.toggle()
+					selectedStatus = .backlog
+				}, label: {
+					Text("Cancel")
+				})
+				Button(action: {
+					addGame(game: game, collection: &observableCollection.collection, status: selectedStatus.status, platform: selectedPlatform)
+					showAddGame.toggle()
+					selectedStatus = .backlog
+				}, label: {
+					Text("Add")
+				})
+				.keyboardShortcut(.defaultAction)
+			}
+		}
+		.padding()
+		.frame(width: 300)
+		.onAppear {
+			getGameById(id: game.id) {result in
+				gameDetails = result
+				selectedPlatform = result.platforms[0].abbreviation ?? result.platforms[0].name
+			}
+		}
+	}
+}
+
 struct GameDetailView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
 	
@@ -9,10 +55,11 @@ struct GameDetailView: View {
 	
 	@Binding var selectedGame: Game
 	
-	@State private var loading: Bool = true
-	@State private var gameDetails: GameDetails?
 	@State private var isImageLoaded = false
+	@State private var gameStatus: Category?
 	@State private var showingAlert: Bool = false
+	@State private var showAddGame: Bool = false
+	@State private var showEditInfo: Bool = false
 	
 	var body: some View {
 		GeometryReader { geometry in
@@ -28,19 +75,19 @@ struct GameDetailView: View {
 					.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
 					.prettyShadow(.normal)
 					
-					Text(selectedGame.name).fontWeight(.medium).padding().multilineTextAlignment(.center)
+					Text(selectedGame.name)
+						.font(.title2)
+						.padding()
+						.multilineTextAlignment(.center)
+					Text(selectedGame.platform ?? "")
+						.font(.subheadline)
 					HStack(spacing: 10) {
 						
 						if selectedGame.in_collection != true {
 							Button(action: {
-								addGame(game: selectedGame, collection: &observableCollection.collection, status: "backlog")
+								showAddGame.toggle()
 							}, label: {
-								Text("Add to Library")
-							})
-							Button(action: {
-								addGame(game: selectedGame, collection: &observableCollection.collection, status: "wishlist")
-							}, label: {
-								Text("Add to Wishlist")
+								Label("Add to Library", systemImage: "plus")
 							})
 						} else {
 							Menu(content: {
@@ -48,30 +95,28 @@ struct GameDetailView: View {
 							}, label: {
 								Text(LocalizedStringKey(selectedGame.status?.rawValue ?? "Status"))
 							})
-							Menu(content: {
-								ForEach(gameDetails?.platforms ?? []) { platform in
-									Button(platform.abbreviation ?? platform.name, action: {
-										let platformString = platform.abbreviation ?? platform.name
-										updateGamePlatform(id: selectedGame.id, collection: &observableCollection.collection, platform: platformString)
-									})
-								}
+							Button(action: {
+								showEditInfo.toggle()
 							}, label: {
-								Text(selectedGame.platform ?? "Platform")
+								Image(systemName: "pencil")
 							})
 						}
 					}
 					.padding()
+					
+					Text("Note:")
+						.font(.title3)
+					Text(selectedGame.notes ?? "")
+					
 				}
 				.frame(height: geometry.size.height + 30)
 			}
 		}
-		//		.onChange(of: selectedGame) { _ in
-		//			loading = true
-		//			print("Loading game details...")
-		//			getGameById(id: selectedGame.id) {result in
-		//				gameDetails = result
-		//				loading = false
-		//			}
-		//		}
+		.sheet(isPresented: $showEditInfo, content: {
+			EditGameView(game: selectedGame, show: $showEditInfo)
+		})
+		.sheet(isPresented: $showAddGame, content: {
+			AddGameView(showAddGame: $showAddGame, game: selectedGame)
+		})
 	}
 }

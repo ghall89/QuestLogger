@@ -11,7 +11,6 @@
 		D30800A72A05B9530068D4D1 /* CollectionSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30800A62A05B9530068D4D1 /* CollectionSearchView.swift */; };
 		D30800AD2A0743000068D4D1 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30800AC2A0743000068D4D1 /* SidebarView.swift */; };
 		D30AE2292A09239E00BB622B /* CategoryEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30AE2282A09239E00BB622B /* CategoryEnum.swift */; };
-		D3153EE72A8E799C0068CD87 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = D3153EE62A8E799C0068CD87 /* Credits.rtf */; };
 		D319ACF229EC56B200998371 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D319ACF129EC56B200998371 /* Localizable.strings */; };
 		D32E0CC929EB081900D1809B /* gameQueries.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32E0CC829EB081900D1809B /* gameQueries.swift */; };
 		D330E7222A00805C00011782 /* prettyShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D330E7212A00805C00011782 /* prettyShadow.swift */; };
@@ -49,6 +48,7 @@
 		D3AE29F129E4BDB2000CA2D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3AE29F029E4BDB2000CA2D4 /* Assets.xcassets */; };
 		D3AE29F429E4BDB2000CA2D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3AE29F329E4BDB2000CA2D4 /* Preview Assets.xcassets */; };
 		D3CD75292A8696AC0008DC98 /* ExperimentalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CD75282A8696AC0008DC98 /* ExperimentalView.swift */; };
+		D3CE56AF2A93A7A400EA71EF /* EditGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CE56AE2A93A7A400EA71EF /* EditGameView.swift */; };
 		D3D817CB29E6BC1000C010A1 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D817CA29E6BC1000C010A1 /* SearchView.swift */; };
 		D3D817CD29E6BCEF00C010A1 /* GameDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D817CC29E6BCEF00C010A1 /* GameDetailView.swift */; };
 		D3F9342B29FAA3890046585A /* StatusMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F9342A29FAA3890046585A /* StatusMenuView.swift */; };
@@ -63,7 +63,6 @@
 		D30800A62A05B9530068D4D1 /* CollectionSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSearchView.swift; sourceTree = "<group>"; };
 		D30800AC2A0743000068D4D1 /* SidebarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		D30AE2282A09239E00BB622B /* CategoryEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEnum.swift; sourceTree = "<group>"; };
-		D3153EE62A8E799C0068CD87 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		D319ACEF29EC436C00998371 /* Game-Buddy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Game-Buddy-Info.plist"; sourceTree = "<group>"; };
 		D319ACF129EC56B200998371 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "Game Buddy/Localizable.strings"; sourceTree = SOURCE_ROOT; };
 		D32E0CC829EB081900D1809B /* gameQueries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameQueries.swift; sourceTree = "<group>"; };
@@ -100,6 +99,7 @@
 		D3AE29F029E4BDB2000CA2D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3AE29F329E4BDB2000CA2D4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D3CD75282A8696AC0008DC98 /* ExperimentalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExperimentalView.swift; sourceTree = "<group>"; };
+		D3CE56AE2A93A7A400EA71EF /* EditGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameView.swift; sourceTree = "<group>"; };
 		D3D817CA29E6BC1000C010A1 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		D3D817CC29E6BCEF00C010A1 /* GameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailView.swift; sourceTree = "<group>"; };
 		D3EA2D1B29F8583B003320E9 /* Game Buddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Game Buddy.entitlements"; sourceTree = "<group>"; };
@@ -194,6 +194,7 @@
 				D332AF4829E6EB0000ADD896 /* GameCoverView.swift */,
 				D3D817CC29E6BCEF00C010A1 /* GameDetailView.swift */,
 				D3F9342A29FAA3890046585A /* StatusMenuView.swift */,
+				D3CE56AE2A93A7A400EA71EF /* EditGameView.swift */,
 			);
 			path = GameViews;
 			sourceTree = "<group>";
@@ -271,7 +272,6 @@
 		D3AE29EB29E4BDB1000CA2D4 /* Game Buddy */ = {
 			isa = PBXGroup;
 			children = (
-				D3153EE62A8E799C0068CD87 /* Credits.rtf */,
 				D3EA2D1B29F8583B003320E9 /* Game Buddy.entitlements */,
 				D319ACF129EC56B200998371 /* Localizable.strings */,
 				D3AE29EC29E4BDB1000CA2D4 /* GameBuddyApp.swift */,
@@ -391,7 +391,6 @@
 				D3AE29F429E4BDB2000CA2D4 /* Preview Assets.xcassets in Resources */,
 				D319ACF229EC56B200998371 /* Localizable.strings in Resources */,
 				D3AE29F129E4BDB2000CA2D4 /* Assets.xcassets in Resources */,
-				D3153EE72A8E799C0068CD87 /* Credits.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +437,7 @@
 				D30800AD2A0743000068D4D1 /* SidebarView.swift in Sources */,
 				D34352A329F9FD9B00C55D28 /* removeGame.swift in Sources */,
 				D330E7222A00805C00011782 /* prettyShadow.swift in Sources */,
+				D3CE56AF2A93A7A400EA71EF /* EditGameView.swift in Sources */,
 				D346C94229E8BF700096D2E9 /* storeCollectionAsJSON.swift in Sources */,
 				D35C779B29E8924300ED4D10 /* queryController.swift in Sources */,
 				D3F9343129FAAEBC0046585A /* ObservableCollection.swift in Sources */,

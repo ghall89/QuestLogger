@@ -44,7 +44,7 @@ struct GameBuddyApp: App {
 			}
 			CommandGroup(replacing: CommandGroupPlacement.newItem) {
 				Button("Search", action: {
-					// set search box as focus
+					
 				})
 				.keyboardShortcut(KeyboardShortcut(KeyEquivalent("F")))
 			}

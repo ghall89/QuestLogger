@@ -1,16 +1,17 @@
 import Foundation
 
-func updateGame(id: Int, collection: inout [Game], status: String) {
+func updateGame(id: Int, collection: inout [Game], status: String? = nil, platform: String? = nil, note: String? = nil) {
 	if let index = collection.firstIndex(where: { $0.id == id }) {
-		collection[index].status = Game.Status(rawValue: status)
-		collection[index].status_date = Date()
-		storeCollectionAsJSON(collection: collection)
-	}
-}
-
-func updateGamePlatform(id: Int, collection: inout [Game], platform: String) {
-	if let index = collection.firstIndex(where: { $0.id == id }) {
-		collection[index].platform = platform
+		if status != nil {
+			collection[index].status = Game.Status(rawValue: status!)
+			collection[index].status_date = Date()
+		}
+		if platform != nil {
+			collection[index].platform = platform
+		}
+		if note != nil {
+			collection[index].notes = note
+		}
 		storeCollectionAsJSON(collection: collection)
 	}
 }
