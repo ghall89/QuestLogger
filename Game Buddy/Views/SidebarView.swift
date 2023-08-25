@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 extension Array: RawRepresentable where Element: Codable {
 	public init?(rawValue: String) {
 		guard let data = rawValue.data(using: .utf8),
@@ -22,13 +23,7 @@ extension Array: RawRepresentable where Element: Codable {
 
 struct SidebarView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
-	
-	@AppStorage("customCollections") var customCollections: [Folder] = []
-	
 	@Binding var selection: String
-	
-	@State private var showNewFolder: Bool = false
-	@State private var folderToEdit: UUID?
 	@State private var platforms: [String] = []
 	
 	var body: some View {

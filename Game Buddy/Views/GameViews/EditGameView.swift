@@ -1,4 +1,6 @@
 import SwiftUI
+import CachedAsyncImage
+import SwiftfulLoadingIndicators
 
 struct PlatformPickerView: View {
 	@Binding var selectedPlatform: String
@@ -32,19 +34,36 @@ struct EditGameView: View {
 	
 	var body: some View {
 		VStack(spacing: 20) {
-			TextField("Title", text: $gameTitle)
-			Picker("Platform", selection: $selectedPlatform, content: {
-				if gameDetails != nil {
-					ForEach(gameDetails?.platforms ?? []) { platform in
-						Text(platform.abbreviation ?? platform.name).tag(platform.abbreviation ?? platform.name)
+			HStack(spacing: 10) {
+				VStack {
+					CachedAsyncImage(url: getImageURL(imageId: game.cover.image_id)) { image in
+						image.resizable().aspectRatio(contentMode: .fit)
+					} placeholder: {
+						LoadingIndicator(animation: .bar, color: .accentColor)
 					}
-				} else if game.platform != nil {
-					Text(game.platform!).tag(game.platform!)
+					.frame(width: 200)
+					.scaledToFit()
 				}
-			})
-			TextField("Notes", text: $noteBody, axis: .vertical)
-				.lineLimit(4, reservesSpace: true)
-			
+				Form {
+					TextField("Title", text: $gameTitle)
+						.textFieldStyle(.roundedBorder)
+					Picker("Platform", selection: $selectedPlatform, content: {
+						if gameDetails != nil {
+							ForEach(gameDetails?.platforms ?? []) { platform in
+								Text(platform.abbreviation ?? platform.name).tag(platform.abbreviation ?? platform.name)
+							}
+						} else if game.platform != nil {
+							Text(game.platform!).tag(game.platform!)
+						}
+					})
+					TextEditor(text: $noteBody)
+						.frame(height: 100)
+						.textFieldStyle(.roundedBorder)
+						.border(.quaternary, width: 1)
+					Text("Tip: You can use Markdown!")
+						.font(.footnote)
+				}
+			}
 			HStack {
 				Spacer()
 				Button(action: {
@@ -59,7 +78,7 @@ struct EditGameView: View {
 				.disabled(gameTitle.isEmpty)
 			}
 		}
-		.frame(width: 300)
+		.frame(width: 600)
 		.padding()
 		.onAppear {
 			getGameDetails()

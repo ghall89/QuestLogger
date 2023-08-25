@@ -9,7 +9,7 @@ struct Game: Codable, Identifiable, Equatable {
 	var status: Status?
 	var status_date: Date?
 	var platform: String?
-//	var folders: [Folder]?
+	var tags: [String]?
 	var rating: Int?
 	var notes: String?
 	static func == (lhs: Game, rhs: Game) -> Bool {
@@ -28,7 +28,7 @@ struct Game: Codable, Identifiable, Equatable {
 		case status
 		case status_date
 		case platform
-//		case folders
+		case tags
 		case rating
 		case notes
 	}

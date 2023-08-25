@@ -1,15 +1,16 @@
 import SwiftUI
+import Foundation
 
 struct ContentView: View {
 	@AppStorage("twitchClientID") var clientID: String = ""
 	@AppStorage("twitchClientSecret") var clientSecret: String = ""
 	@EnvironmentObject var observableGameDetails: ObservableGameDetails
 	@EnvironmentObject var observableCollection: ObservableCollection
-	
+
 	@Binding var selectedCategory: String
 	@State private var searchString: String = ""
 	@State private var apiAlert: Bool = false
-	
+
 	private var selectedGameBinding: Binding<Game>? {
 		guard let selectedGame = observableGameDetails.selectedGame else { return nil }
 		if selectedGame.in_collection == true {
@@ -20,10 +21,10 @@ struct ContentView: View {
 		}
 		return Binding(get: { selectedGame }, set: { observableGameDetails.selectedGame = $0 })
 	}
-	
+
 	var body: some View {
 		NavigationSplitView(
-			
+
 			sidebar: {
 				SidebarView(selection: $selectedCategory)
 			}, content: {

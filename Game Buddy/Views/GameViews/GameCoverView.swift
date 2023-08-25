@@ -41,7 +41,7 @@ struct GameCoverView: View {
 					.overlay(content: {
 						if game.id == observableGameDetails.selectedGame?.id {
 							AnyShape(roundedRec)
-								.stroke(.blue, lineWidth: 3)
+								.stroke(Color.accentColor, lineWidth: 3)
 						}
 					})
 					.animation(.easeInOut(duration: 0.1), value: isHovered)

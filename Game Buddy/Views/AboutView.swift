@@ -36,6 +36,9 @@ struct AboutView: View {
 						Link(destination: URL(string: "https://github.com/lorenzofiamingo/swiftui-cached-async-image")!, label: {
 							Text("CachedAsyncImage")
 						})
+						Link(destination: URL(string: "https://github.com/gonzalezreal/swift-markdown-ui")!, label: {
+							Text("MarkdownUI")
+						})
 						Link(destination: URL(string: "https://github.com/SwiftfulThinking/SwiftfulLoadingIndicators")!, label: {
 							Text("SwiftfulLoadingIndicators")
 						})

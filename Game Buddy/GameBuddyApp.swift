@@ -37,30 +37,7 @@ struct GameBuddyApp: App {
 				})
 		}
 		.commands {
-			CommandGroup(replacing: CommandGroupPlacement.appInfo) {
-				Button("About QuestLogger") {
-					showAboutView.toggle()
-				}
-			}
-			CommandGroup(replacing: CommandGroupPlacement.newItem) {
-				Button("Search", action: {
-					
-				})
-				.keyboardShortcut(KeyboardShortcut(KeyEquivalent("F")))
-			}
-			CommandGroup(replacing: CommandGroupPlacement.sidebar, addition: {
-				ForEach(Array(Category.allCases.enumerated()), id: \.element.status) { index, category in
-					Button(LocalizedStringKey(category.status), action: {
-						selectedCategory = category.status
-					})
-					.tag(index)
-					.keyboardShortcut(KeyboardShortcut(KeyEquivalent(Character(String(index + 1)))))
-				}
-				Divider()
-			})
-			CommandGroup(replacing: CommandGroupPlacement.help, addition: {
-				Link("Report an Issue", destination: URL(string:"https://github.com/ghall89/questlogger-mac/issues")!)
-			})
+			MenuBarView(showAboutView: $showAboutView, selectedCategory: $selectedCategory)
 		}
 		
 		Settings {

@@ -2,7 +2,6 @@ import SwiftUI
 
 struct FolderDataView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
-	@AppStorage("customCollections") var customCollections: [Folder] = []
 	
 	@Binding var category: String
 	var folderId: UUID?
@@ -18,11 +17,7 @@ struct FolderDataView: View {
 	}
 	
 	private func setFilteredGames() {
-		if folderId != nil {
-			if let gameIds = customCollections.first(where: {$0.id == folderId})?.games {
-				filteredGames = observableCollection.collection.filter {gameIds.contains($0.id)}
-			}
-		} else if isValidCategory(string: category) {
+		if isValidCategory(string: category) {
 			filteredGames = observableCollection.collection.filter {$0.status == Game.Status(rawValue: category)}
 		} else {
 			filteredGames = observableCollection.collection.filter {$0.platform == category}
