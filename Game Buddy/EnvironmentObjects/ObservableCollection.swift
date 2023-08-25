@@ -4,9 +4,16 @@ class ObservableCollection: ObservableObject, Equatable {
 	static func == (lhs: ObservableCollection, rhs: ObservableCollection) -> Bool {
 		return lhs.collection == rhs.collection
 	}
-	@Published var collection = [Game]()
+	@Published var collection = [Game]() {
+		didSet {
+			updatePlatforms()
+		}
+	}
+	@Published var platforms = [String]()
+	
 	init() {
 		loadCollectionFromJSON()
+		updatePlatforms()
 	}
 	func loadCollectionFromJSON() {
 		var loadedCollection = [Game]()
@@ -23,5 +30,9 @@ class ObservableCollection: ObservableObject, Equatable {
 			}
 		}
 		collection = loadedCollection
+	}
+	
+	private func updatePlatforms() {
+		platforms = Array(Set(collection.compactMap { $0.platform })).sorted()
 	}
 }

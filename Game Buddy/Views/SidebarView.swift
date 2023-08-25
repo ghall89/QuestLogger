@@ -24,7 +24,6 @@ extension Array: RawRepresentable where Element: Codable {
 struct SidebarView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
 	@Binding var selection: String
-	@State private var platforms: [String] = []
 	
 	var body: some View {
 		List(selection: $selection) {
@@ -37,9 +36,9 @@ struct SidebarView: View {
 			}
 			.collapsible(false)
 			
-			if platforms.count >= 1 {
+			if observableCollection.platforms.count >= 1 {
 				Section("Platforms") {
-					ForEach(platforms, id: \.self) { platform in
+					ForEach(observableCollection.platforms, id: \.self) { platform in
 						NavigationLink(value: platform, label: {
 							Label(platform, systemImage: "folder.fill")
 						})
@@ -48,9 +47,6 @@ struct SidebarView: View {
 			}
 		}
 		.frame(minWidth: 200)
-		.onAppear {
-			platforms = Array(Set(observableCollection.collection.compactMap { $0.platform })).sorted()
-		}
 	}
 }
 
