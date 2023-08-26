@@ -158,16 +158,12 @@
          <Group
             location = "group:Logic"
             name = "Logic">
-            <Group
-               location = "container:"
-               name = "Helpers">
-               <FileRef
-                  location = "group:/Users/ghall/Developer/Xcode/QuestLogger/gameExistsInCollection.swift">
-               </FileRef>
-               <FileRef
-                  location = "group:/Users/ghall/Developer/Xcode/QuestLogger/formatDate.swift">
-               </FileRef>
-            </Group>
+            <FileRef
+               location = "group:formatDate.swift">
+            </FileRef>
+            <FileRef
+               location = "group:gameExistsInCollection.swift">
+            </FileRef>
             <Group
                location = "group:API"
                name = "API">
