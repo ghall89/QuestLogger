@@ -2,6 +2,7 @@ import SwiftUI
 import MarkdownUI
 import SwiftfulLoadingIndicators
 import CachedAsyncImage
+import QuestKit
 
 struct StarRatingView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
@@ -51,14 +52,14 @@ struct AddGameView: View {
 	@Binding var showAddGame: Bool
 	var game: Game
 	
-	@State private var selectedStatus: Category = .backlog
+	@State private var selectedStatus: Status = .backlog
 	@State var gameDetails: GameDetails?
 	@State var selectedPlatform: String = ""
 	
 	var body: some View {
 		VStack(spacing: 20) {
 			Picker("Status", selection: $selectedStatus, content: {
-				ForEach(Category.allCases, id: \.self.status, content: {category in
+				ForEach(Status.allCases, id: \.self.status, content: {category in
 					Text(LocalizedStringKey(category.status)).tag(category)
 				})
 			})
@@ -72,7 +73,7 @@ struct AddGameView: View {
 					Text("Cancel")
 				})
 				Button(action: {
-					addGame(game: game, collection: &observableCollection.collection, status: selectedStatus.status, platform: selectedPlatform)
+					addGame(game: game, collection: &observableCollection.collection, status: selectedStatus, platform: selectedPlatform)
 					showAddGame.toggle()
 					selectedStatus = .backlog
 				}, label: {
@@ -100,7 +101,7 @@ struct GameDetailView: View {
 	@Binding var selectedGame: Game
 	
 	@State private var isImageLoaded = false
-	@State private var gameStatus: Category?
+	@State private var gameStatus: Status?
 	@State private var showingAlert: Bool = false
 	@State private var showAddGame: Bool = false
 	@State private var showEditInfo: Bool = false
@@ -137,7 +138,7 @@ struct GameDetailView: View {
 							Menu(content: {
 								StatusMenuView(game: $selectedGame, showingAlert: $showingAlert)
 							}, label: {
-								Text(LocalizedStringKey(selectedGame.status?.rawValue ?? "Status"))
+								Text(LocalizedStringKey(selectedGame.status?.status ?? "Status"))
 							})
 							Button(action: {
 								showEditInfo.toggle()

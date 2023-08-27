@@ -1,9 +1,9 @@
 import Foundation
 
-public func addGame(game: Game, collection: inout [Game], status: String, platform: String? = nil) {
+public func addGame(game: Game, collection: inout [Game], status: Status, platform: String? = nil) {
 	var gameToAdd: Game = game
 	gameToAdd.in_collection = true
-	gameToAdd.status = Game.Status(rawValue: status)
+	gameToAdd.status = status
 	gameToAdd.platform = platform
 	gameToAdd.status_date = Date()
 	collection.append(gameToAdd)

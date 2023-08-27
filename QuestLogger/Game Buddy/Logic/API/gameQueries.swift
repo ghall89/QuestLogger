@@ -1,4 +1,5 @@
 import Foundation
+import QuestKit
 
 var igdbGameSummaryFields: String = "name,cover.image_id,screenshots.image_id,first_release_date"
 var igdbGameDetailFields: String = "platforms.*,platforms.platform_logo.image_id,summary,genres.name,similar_games"

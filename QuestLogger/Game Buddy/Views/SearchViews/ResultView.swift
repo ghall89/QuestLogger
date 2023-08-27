@@ -1,4 +1,5 @@
 import SwiftUI
+import QuestKit
 
 func swapInCollectionGame(inputGame: Game) -> Binding<Game> {
 	let observableCollection = ObservableCollection()

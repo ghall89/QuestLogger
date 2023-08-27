@@ -1,11 +1,5 @@
-//
-//  MenuBarView.swift
-//  QuestLogger
-//
-//  Created by Graham Hall on 8/23/23.
-//
-
 import SwiftUI
+import QuestKit
 
 struct MenuBarView: Commands {
 	@StateObject var observableGameDetails = ObservableGameDetails()
@@ -26,7 +20,7 @@ struct MenuBarView: Commands {
 			.keyboardShortcut(KeyboardShortcut(KeyEquivalent("F")))
 		}
 		CommandGroup(replacing: CommandGroupPlacement.sidebar, addition: {
-			ForEach(Array(Category.allCases.enumerated()), id: \.element.status) { index, category in
+			ForEach(Array(Status.allCases.enumerated()), id: \.element.status) { index, category in
 				Button(LocalizedStringKey(category.status), action: {
 					selectedCategory = category.status
 				})
@@ -38,7 +32,7 @@ struct MenuBarView: Commands {
 		
 		CommandMenu("Game", content: {
 			Menu("Move to...", content: {
-				ForEach(Category.allCases, id: \.self, content: { category in
+				ForEach(Status.allCases, id: \.self, content: { category in
 					Button(LocalizedStringKey(category.status), action: {
 						
 					})

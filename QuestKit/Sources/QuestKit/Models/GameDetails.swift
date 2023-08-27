@@ -1,15 +1,15 @@
 import Foundation
 
 public struct GameDetails: Codable {
-	let id: Int
-	let cover: Img
-	let name: String
-	let screenshots: [Img]
-	let platforms: [Platform]
-	let first_release_date: Date?
-	let summary: String?
-	let genres: [Genre]
-	let similar_games: [Int]
+	public let id: Int
+	public let cover: Img
+	public let name: String
+	public let screenshots: [Img]
+	public let platforms: [Platform]
+	public let first_release_date: Date?
+	public let summary: String?
+	public let genres: [Genre]
+	public let similar_games: [Int]
 
 	enum CodingKeys: String, CodingKey {
 		case id
@@ -26,7 +26,7 @@ public struct GameDetails: Codable {
 
 public struct Genre: Codable, Identifiable {
 	public let id: Int
-	let name: String
+	public let name: String
 	enum CodingKeys: String, CodingKey {
 		case id
 		case name
@@ -35,8 +35,8 @@ public struct Genre: Codable, Identifiable {
 
 public struct Platform: Codable, Identifiable {
 	public let id: Int
-	let abbreviation: String?
-	let name: String
+	public let abbreviation: String?
+	public let name: String
 	enum CodingKeys: String, CodingKey {
 		case id
 		case abbreviation

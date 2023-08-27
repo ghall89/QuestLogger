@@ -1,14 +1,31 @@
 import Foundation
 import SwiftUI
 
-public enum Category: CaseIterable {
+public enum Status: CaseIterable, Codable {
 	case wishlist
 	case backlog
 	case nowPlaying
 	case finished
 	case archived
+	
+	public init?(statusString: String) {
+		switch statusString {
+			case "wishlist":
+				self = .wishlist
+			case "backlog":
+				self = .backlog
+			case "now_playing":
+				self = .nowPlaying
+			case "finished":
+				self = .finished
+			case "archived":
+				self = .archived
+			default:
+				return nil
+		}
+	}
 
-	var status: String {
+	public var status: String {
 		switch self {
 			case .wishlist:
 				return "wishlist"
@@ -23,7 +40,7 @@ public enum Category: CaseIterable {
 		}
 	}
 
-	var icon: String {
+	public var icon: String {
 		switch self {
 			case .wishlist:
 				return "wand.and.stars"

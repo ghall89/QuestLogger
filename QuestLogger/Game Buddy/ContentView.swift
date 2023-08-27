@@ -1,5 +1,6 @@
 import SwiftUI
 import Foundation
+import QuestKit
 
 struct ContentView: View {
 	@AppStorage("twitchClientID") var clientID: String = ""

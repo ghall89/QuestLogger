@@ -1,4 +1,5 @@
 import SwiftUI
+import QuestKit
 
 struct StatusMenuView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
@@ -9,42 +10,42 @@ struct StatusMenuView: View {
 	var body: some View {
 
 		VStack {
-			if game.status != Game.Status(rawValue: "wishlist") {
+			if game.status != Status.wishlist {
 				Button(action: {
-					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: "wishlist")
+					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: Status.wishlist)
 				}, label: {
 					Text(LocalizedStringKey("wishlist"))
 				})
 			}
 
-			if game.status != Game.Status(rawValue: "backlog") {
+			if game.status != Status.backlog {
 				Button(action: {
-					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: "backlog")
+					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: Status.backlog)
 				}, label: {
 					Text(LocalizedStringKey("backlog"))
 				})
 			}
 
-			if game.status != Game.Status(rawValue: "now_playing") {
+			if game.status != Status.nowPlaying {
 				Button(action: {
-					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: "now_playing")
+					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: Status.nowPlaying)
 				}, label: {
 					Text(LocalizedStringKey("now_playing"))
 				})
 			}
 
-			if game.status != Game.Status(rawValue: "finished") {
+			if game.status != Status.finished {
 				Button(action: {
-					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: "finished")
+					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: Status.finished)
 				}, label: {
 					Text(LocalizedStringKey("finished"))
 				})
 			}
 			Divider()
 
-			if game.in_collection == true && game.status != Game.Status(rawValue: "archived") && game.status != Game.Status(rawValue: "wishlist") {
+			if game.in_collection == true && game.status != Status.archived && game.status != Status.wishlist {
 				Button(action: {
-					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: "archived")
+					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: Status.archived)
 				}, label: {
 					Text(LocalizedStringKey("archive"))
 				})

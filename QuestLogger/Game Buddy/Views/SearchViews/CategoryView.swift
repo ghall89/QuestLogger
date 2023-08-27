@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftfulLoadingIndicators
+import QuestKit
 
 struct CategoryItemView: View {
 	var label: String

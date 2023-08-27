@@ -1,4 +1,5 @@
 import SwiftUI
+import QuestKit
 
 struct FolderView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection

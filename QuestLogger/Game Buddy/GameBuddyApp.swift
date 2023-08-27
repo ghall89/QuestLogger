@@ -1,4 +1,5 @@
 import SwiftUI
+import QuestKit
 
 func applyColorScheme(colorScheme: String) -> ColorScheme? {
 	

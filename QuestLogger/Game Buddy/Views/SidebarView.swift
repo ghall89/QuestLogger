@@ -1,5 +1,5 @@
 import SwiftUI
-
+import QuestKit
 
 extension Array: RawRepresentable where Element: Codable {
 	public init?(rawValue: String) {
@@ -28,7 +28,7 @@ struct SidebarView: View {
 	var body: some View {
 		List(selection: $selection) {
 			Section("Library") {
-				ForEach(Category.allCases, id: \.self.status) { category in
+				ForEach(Status.allCases, id: \.self.status) { category in
 					NavigationLink(value: category.status, label: {
 						Label(LocalizedStringKey(category.status), systemImage: category.icon)
 					})

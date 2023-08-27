@@ -1,5 +1,5 @@
 import Foundation
-
+import QuestKit
 
 class ObservableCollection: ObservableObject, Equatable {
 	static func == (lhs: ObservableCollection, rhs: ObservableCollection) -> Bool {

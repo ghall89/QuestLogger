@@ -1,5 +1,6 @@
 import SwiftUI
 import CachedAsyncImage
+import QuestKit
 
 struct GameCoverView: View {
 	@EnvironmentObject var observableGameDetails: ObservableGameDetails

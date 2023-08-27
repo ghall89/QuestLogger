@@ -1,9 +1,9 @@
 import Foundation
 
-public func updateGame(id: Int, collection: inout [Game], status: String? = nil, platform: String? = nil, note: String? = nil, rating: Int? = nil) {
+public func updateGame(id: Int, collection: inout [Game], status: Status? = nil, platform: String? = nil, note: String? = nil, rating: Int? = nil) {
 	if let index = collection.firstIndex(where: { $0.id == id }) {
 		if status != nil {
-			collection[index].status = Game.Status(rawValue: status!)
+			collection[index].status = status
 			collection[index].status_date = Date()
 		}
 		if platform != nil {

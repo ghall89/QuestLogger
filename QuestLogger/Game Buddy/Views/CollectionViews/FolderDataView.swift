@@ -1,4 +1,5 @@
 import SwiftUI
+import QuestKit
 
 struct FolderDataView: View {
 	@EnvironmentObject var observableCollection: ObservableCollection
@@ -9,7 +10,7 @@ struct FolderDataView: View {
 	@State var filteredGames = [Game]()
 	
 	private func isValidCategory(string: String) -> Bool {
-		let allCategories: [Category] = [.wishlist, .backlog, .nowPlaying, .finished, .archived]
+		let allCategories: [Status] = Status.allCases
 		
 		return allCategories.contains { category in
 			string == category.status
@@ -17,11 +18,12 @@ struct FolderDataView: View {
 	}
 	
 	private func setFilteredGames() {
-		if isValidCategory(string: category) {
-			filteredGames = observableCollection.collection.filter {$0.status == Game.Status(rawValue: category)}
+		if let validStatus = Status(statusString: category) {
+			filteredGames = observableCollection.collection.filter {$0.status == validStatus}
 		} else {
 			filteredGames = observableCollection.collection.filter {$0.platform == category}
 		}
+		
 	}
 	
 	private func getTitle() -> String {

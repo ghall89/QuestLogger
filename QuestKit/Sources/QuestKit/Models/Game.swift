@@ -2,16 +2,17 @@ import Foundation
 
 public struct Game: Codable, Identifiable, Equatable {
 	public let id: Int
-	let cover: Img
-	let name: String
-	let first_release_date: Date?
-	var in_collection: Bool? = false
-	var status: Status?
-	var status_date: Date?
-	var platform: String?
-	var tags: [String]?
-	var rating: Int?
-	var notes: String?
+	public var cover: Img
+	public var name: String
+	public var first_release_date: Date?
+	public var in_collection: Bool? = false
+	public var status: Status?
+	public var status_date: Date?
+	public var platform: String?
+	public var tags: [String]?
+	public var rating: Int?
+	public var notes: String?
+	
 	public static func == (lhs: Game, rhs: Game) -> Bool {
 		return lhs.id == rhs.id &&
 		lhs.in_collection == rhs.in_collection &&
@@ -32,19 +33,11 @@ public struct Game: Codable, Identifiable, Equatable {
 		case rating
 		case notes
 	}
-
-	enum Status: String, Codable {
-		case wishlist
-		case backlog
-		case now_playing
-		case finished
-		case archived
-	}
 }
 
 public struct Img: Codable, Identifiable {
 	public let id: Int
-	let image_id: String
+	public let image_id: String
 	
 	enum CodingKeys: String, CodingKey {
 		case id

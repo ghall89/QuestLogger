@@ -1,6 +1,7 @@
 import SwiftUI
 import CachedAsyncImage
 import SwiftfulLoadingIndicators
+import QuestKit
 
 struct PlatformPickerView: View {
 	@Binding var selectedPlatform: String
