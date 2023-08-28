@@ -29,12 +29,15 @@ struct ContentView: View {
 			sidebar: {
 				SidebarView(selection: $selectedCategory)
 			}, content: {
-				if !searchString.isEmpty {
-					SearchView(searchString: $searchString)
+				VStack {
+					if !searchString.isEmpty {
+						SearchView(searchString: $searchString)
+					}
+					else {
+						FolderDataView(category: $selectedCategory)
+					}
 				}
-				else {
-					FolderDataView(category: $selectedCategory)
-				}
+				.frame(minWidth: 800)
 			}, detail: {
 				VStack {
 					if let selectedGame = selectedGameBinding {

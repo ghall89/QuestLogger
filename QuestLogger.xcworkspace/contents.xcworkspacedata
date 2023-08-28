@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
-   <Group
-      location = "group:QuestLogger"
-      name = "QuestLogger">
-      <FileRef
-         location = "group:Game-Buddy-Info.plist">
-      </FileRef>
-      <FileRef
-         location = "group:QuestLogger.xcodeproj">
-      </FileRef>
-   </Group>
+   <FileRef
+      location = "group:QuestLogger/QuestLogger.xcodeproj">
+   </FileRef>
    <FileRef
       location = "group:QuestKit">
    </FileRef>
