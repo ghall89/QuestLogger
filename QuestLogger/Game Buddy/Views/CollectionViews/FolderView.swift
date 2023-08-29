@@ -8,9 +8,6 @@ struct FolderView: View {
 	@Binding var games: [Game]
 	let category: String
 	
-	@State private var selectedView: String = "grid"
-	@State private var showViewSortOptions: Bool = false
-	
 	@AppStorage("selectedViewSort") var selectedViewSort: String = "alphabetical"
 	
 	init(games: Binding<[Game]>, category: String) {
@@ -35,27 +32,6 @@ struct FolderView: View {
 			return date1 < date2
 		}
 	]
-	
-	private func viewSort(val1: Game, val2: Game) -> Bool {
-		guard let comparison = sortComparisons[selectedViewSort] else {
-			return false
-		}
-		return comparison(val1, val2)
-	}
-	
-	private func getRandomGame() {
-		
-		if games.isEmpty {
-			return
-		}
-		
-		if let randomGame = games.randomElement() {
-			observableGameDetails.selectedGame = randomGame
-			observableGameDetails.detailSliderOpen.toggle()
-		} else {
-			print("No games exist with these conditions")
-		}
-	}
 	
 	var body: some View {
 		ZStack(alignment: .top) {
@@ -94,21 +70,34 @@ struct FolderView: View {
 				})
 				.frame(width: 200)
 				.padding()
-//				Picker(selection: $selectedView, content: {
-//					Image(systemName: "rectangle.grid.3x2").tag("grid")
-//					Image(systemName: "list.bullet").tag("list")
-//					
-//				}, label: {})
-//				.pickerStyle(.segmented)
-//				.padding()
-//				.frame(width: 120)
 			}
 			.background(content: {
 				Rectangle()
 					.fill(.thickMaterial)
 			})
 		}
-		.navigationTitle(category)
+		.navigationTitle(LocalizedStringKey(category))
+	}
+	
+	private func viewSort(val1: Game, val2: Game) -> Bool {
+		guard let comparison = sortComparisons[selectedViewSort] else {
+			return false
+		}
+		return comparison(val1, val2)
+	}
+	
+	private func getRandomGame() {
+		
+		if games.isEmpty {
+			return
+		}
+		
+		if let randomGame = games.randomElement() {
+			observableGameDetails.selectedGame = randomGame
+			observableGameDetails.detailSliderOpen.toggle()
+		} else {
+			print("No games exist with these conditions")
+		}
 	}
 }
 

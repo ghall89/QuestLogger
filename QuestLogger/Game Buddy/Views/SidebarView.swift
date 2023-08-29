@@ -21,6 +21,21 @@ extension Array: RawRepresentable where Element: Codable {
 	}
 }
 
+struct SidebarItemView: View {
+	var destination: String
+	var text: String
+	var icon: String
+	var count: Int
+	
+	var body: some View {
+		NavigationLink(value: destination, label: {
+			Label(LocalizedStringKey(text), systemImage: icon)
+			Spacer()
+			Text("\(count)")
+		})
+	}
+}
+
 struct SidebarView: View {
 	@AppStorage("showArchive") var showArchive: Bool = true
 	@EnvironmentObject var observableCollection: ObservableCollection
@@ -29,11 +44,12 @@ struct SidebarView: View {
 	var body: some View {
 		List(selection: $selection) {
 			Section("Library") {
-				ForEach(Status.allCases, id: \.self.status) { category in
-					if (category == .archived && showArchive == true) || category != .archived {
-						NavigationLink(value: category.status, label: {
-							Label(LocalizedStringKey(category.status), systemImage: category.icon)
-						})
+				ForEach(Status.allCases, id: \.self.status) { status in
+					if (status == .archived && showArchive == true) || status != .archived {
+						SidebarItemView(destination: status.status,
+														text: status.status,
+														icon: status.icon,
+														count: observableCollection.collection.filter { $0.status == status }.count)
 					}
 				}
 			}
@@ -42,9 +58,10 @@ struct SidebarView: View {
 			if observableCollection.platforms.count >= 1 {
 				Section("Platforms") {
 					ForEach(observableCollection.platforms, id: \.self) { platform in
-						NavigationLink(value: platform, label: {
-							Label(platform, systemImage: "folder.fill")
-						})
+						SidebarItemView(destination: platform,
+														text: platform,
+														icon: "folder.fill",
+														count: observableCollection.collection.filter { $0.platform == platform }.count)
 					}
 				}
 			}

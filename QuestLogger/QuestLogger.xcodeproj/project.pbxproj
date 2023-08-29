@@ -21,7 +21,7 @@
 		D35F9AB02A9AFD3A00AFEDAC /* gameExistsInCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F9AAE2A9AFD3A00AFEDAC /* gameExistsInCollection.swift */; };
 		D35F9AB12A9AFD3A00AFEDAC /* formatDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35F9AAF2A9AFD3A00AFEDAC /* formatDate.swift */; };
 		D35F9AB42A9B8B7E00AFEDAC /* QuestKit in Frameworks */ = {isa = PBXBuildFile; productRef = D35F9AB32A9B8B7E00AFEDAC /* QuestKit */; };
-		D365722A2A8F075000D226FB /* FolderDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36572292A8F075000D226FB /* FolderDataView.swift */; };
+		D365722A2A8F075000D226FB /* FolderWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36572292A8F075000D226FB /* FolderWrapperView.swift */; };
 		D365EA4929E61C3B0005BC59 /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = D365EA4829E61C3B0005BC59 /* SwiftfulLoadingIndicators */; };
 		D38E663D2A97A1300030026F /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = D38E663C2A97A1300030026F /* MarkdownUI */; };
 		D39DDA0E29FD83FA001FB62C /* AppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DDA0D29FD83FA001FB62C /* AppearanceView.swift */; };
@@ -53,7 +53,7 @@
 		D35785BA29F98FE90065493F /* FolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderView.swift; sourceTree = "<group>"; };
 		D35F9AAE2A9AFD3A00AFEDAC /* gameExistsInCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gameExistsInCollection.swift; sourceTree = "<group>"; };
 		D35F9AAF2A9AFD3A00AFEDAC /* formatDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = formatDate.swift; sourceTree = "<group>"; };
-		D36572292A8F075000D226FB /* FolderDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDataView.swift; sourceTree = "<group>"; };
+		D36572292A8F075000D226FB /* FolderWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWrapperView.swift; sourceTree = "<group>"; };
 		D397BC212A9A552A00FB8963 /* QuestKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = QuestKit; path = ../QuestKit; sourceTree = "<group>"; };
 		D39DDA0D29FD83FA001FB62C /* AppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceView.swift; sourceTree = "<group>"; };
 		D3AC823D2A8A908200E0784F /* APIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIView.swift; sourceTree = "<group>"; };
@@ -100,6 +100,7 @@
 		D35785AC29F98DE00065493F /* SearchViews */ = {
 			isa = PBXGroup;
 			children = (
+				D30800A62A05B9530068D4D1 /* CollectionSearchView.swift */,
 				D3D817CA29E6BC1000C010A1 /* SearchView.swift */,
 				D35785B629F98F840065493F /* ResultView.swift */,
 				D34352B129FA008900C55D28 /* CategoryView.swift */,
@@ -121,9 +122,8 @@
 		D35785AE29F98E160065493F /* CollectionViews */ = {
 			isa = PBXGroup;
 			children = (
-				D30800A62A05B9530068D4D1 /* CollectionSearchView.swift */,
 				D35785BA29F98FE90065493F /* FolderView.swift */,
-				D36572292A8F075000D226FB /* FolderDataView.swift */,
+				D36572292A8F075000D226FB /* FolderWrapperView.swift */,
 			);
 			path = CollectionViews;
 			sourceTree = "<group>";
@@ -344,7 +344,7 @@
 				D330E7222A00805C00011782 /* prettyShadow.swift in Sources */,
 				D3CE56AF2A93A7A400EA71EF /* EditGameView.swift in Sources */,
 				D3F9343129FAAEBC0046585A /* ObservableCollection.swift in Sources */,
-				D365722A2A8F075000D226FB /* FolderDataView.swift in Sources */,
+				D365722A2A8F075000D226FB /* FolderWrapperView.swift in Sources */,
 				D34CC7382A91AA7300DF363F /* AboutView.swift in Sources */,
 				D35F9AB02A9AFD3A00AFEDAC /* gameExistsInCollection.swift in Sources */,
 				D30800A72A05B9530068D4D1 /* CollectionSearchView.swift in Sources */,
@@ -491,6 +491,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "QuestLogger-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = QuestLogger;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -528,6 +529,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "QuestLogger-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = QuestLogger;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
