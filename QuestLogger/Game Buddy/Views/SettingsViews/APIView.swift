@@ -5,19 +5,18 @@ struct APIView: View {
 	@AppStorage("twitchClientSecret") var clientSecret: String = ""
 	
 	var body: some View {
-		Form {
+		VStack {
 			Text("In order to use QuestLogger to access data on IGDB, you will need a Twitch developer account.")
 				.fixedSize(horizontal: false, vertical: true)
+				.multilineTextAlignment(.center)
 			Link(destination: URL(string: "https://dev.twitch.tv/login")!, label: {
 				Text("Twitch Dev Portal")
 			})
 			Divider()
-			TextField(text: $clientID, label: {
-				Text("Client ID")
-			})
-			TextField(text: $clientSecret, label: {
-				Text("Client Secret")
-			})
+			Form {
+				TextField("Client ID:", text: $clientID)
+				TextField("Client Secret:", text: $clientSecret)
+			}
 		}
 	}
 }

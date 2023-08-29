@@ -2,6 +2,7 @@ import SwiftUI
 import QuestKit
 
 struct MenuBarView: Commands {
+	@AppStorage("showArchive") var showArchive: Bool = true
 	@StateObject var observableGameDetails = ObservableGameDetails()
 	
 	@Binding var showAboutView: Bool
@@ -26,6 +27,7 @@ struct MenuBarView: Commands {
 				})
 				.tag(index)
 				.keyboardShortcut(KeyboardShortcut(KeyEquivalent(Character(String(index + 1)))))
+				.disabled(category == .archived && showArchive == false)
 			}
 			Divider()
 		})

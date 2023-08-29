@@ -8,7 +8,7 @@ func savePrefAsString(key: String, value: String) {
 
 struct SettingsView: View {
 	private enum Tabs: Hashable {
-		case twitchAPI, appearance
+		case twitchAPI, library, appearance
 	}
 	
 	var body: some View {
@@ -18,6 +18,11 @@ struct SettingsView: View {
 					Label("Twitch API", systemImage: "server.rack")
 				}
 				.tag(Tabs.twitchAPI)
+			LibraryView()
+				.tabItem {
+					Label("Library", systemImage: "books.vertical")
+				}
+				.tag(Tabs.library)
 			AppearanceView()
 				.tabItem {
 					Label("Appearance", systemImage: "paintbrush")

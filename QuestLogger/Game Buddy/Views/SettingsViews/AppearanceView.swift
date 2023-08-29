@@ -15,14 +15,14 @@ struct AppearanceView: View {
 	}
 	
 	var body: some View {
-		Form {
-			Toggle("Blur Game Backgrounds", isOn: $blurBackground)
+		VStack {
+//			Toggle("Blur Game Backgrounds", isOn: $blurBackground)
 			Picker(selection: $preferredColorScheme, content: {
 				Text("System").tag("system")
 				Text("Light").tag("light")
 				Text("Dark").tag("dark")
 			}, label: {
-				Text("Light/Dark Mode")
+				Text("Light/Dark Mode:")
 			})
 		}
 	}

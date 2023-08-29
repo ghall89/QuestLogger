@@ -22,6 +22,7 @@ extension Array: RawRepresentable where Element: Codable {
 }
 
 struct SidebarView: View {
+	@AppStorage("showArchive") var showArchive: Bool = true
 	@EnvironmentObject var observableCollection: ObservableCollection
 	@Binding var selection: String
 	
@@ -29,9 +30,11 @@ struct SidebarView: View {
 		List(selection: $selection) {
 			Section("Library") {
 				ForEach(Status.allCases, id: \.self.status) { category in
-					NavigationLink(value: category.status, label: {
-						Label(LocalizedStringKey(category.status), systemImage: category.icon)
-					})
+					if (category == .archived && showArchive == true) || category != .archived {
+						NavigationLink(value: category.status, label: {
+							Label(LocalizedStringKey(category.status), systemImage: category.icon)
+						})
+					}
 				}
 			}
 			.collapsible(false)
