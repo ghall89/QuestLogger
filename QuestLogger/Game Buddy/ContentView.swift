@@ -37,7 +37,7 @@ struct ContentView: View {
 						FolderDataView(category: $selectedCategory)
 					}
 				}
-				.frame(minWidth: 800)
+				.frame(minWidth: 600)
 			}, detail: {
 				VStack {
 					if let selectedGame = selectedGameBinding {

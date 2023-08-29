@@ -4,6 +4,8 @@
 
 A macOS application for managing you video game collection. Written in SwiftUI, and uses [IGDB](https://api-docs.igdb.com/#getting-started) as a data source.
 
+![](./screenshot.png)
+
 ## Setting Up
 
 __Important:__ QuestLogger is considered in early alpha.
@@ -31,6 +33,7 @@ In order to fully use the app, you will need to enter your Twitch client ID and 
 ## Packages
 
 - [Alamofire](https://github.com/Alamofire/Alamofire)
+- [MarkdownUI](https://github.com/gonzalezreal/swift-markdown-ui)
 - [SwiftfulLoadingIndicators](https://github.com/SwiftfulThinking/SwiftfulLoadingIndicators)
 - [SwiftUI CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image)
 
