@@ -6,6 +6,9 @@ A macOS application for managing you video game collection. Written in SwiftUI, 
 
 ![](./screenshot.png)
 
+## Table of Contents
+- [Setting Up](#Setting-Up)
+
 ## Setting Up
 
 __Important:__ QuestLogger is considered in early alpha.
@@ -30,7 +33,26 @@ In order to fully use the app, you will need to enter your Twitch client ID and 
 4. From the menubar, go to `Product → Archive`
 5. When archive is complete, click `Distribute App` and select either `Direct Distribution` or `Custom` and follow the prompts
 
-## Packages
+## Library Format
+
+The QuestLogger library format is a package containing a JSON file to store the data for the user's game library, as well as an `img` directory with related PNG graphics:
+
+```
+📄 Library.quest
+├ 📄 game_collection.json
+└ 📁 img
+  ├ 📄 co1qve.png
+  ├ 📄 co4ocq.png
+  └ 📄 co5vmg.png
+```
+
+By default, the file is stored in the `Documents` directory of QuestLogger's sandbox container, located in `~/Library/Containers/QuestLogger/`.
+
+## QuestKit
+
+QuestKit is a Swift Package that handles QuestLoggers data structures, as well as any related functions, including API calls and managing the `Library.quest` file. You can find out more in the [readme](./QuestKit/README.md).
+
+## Package Dependencies
 
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [MarkdownUI](https://github.com/gonzalezreal/swift-markdown-ui)

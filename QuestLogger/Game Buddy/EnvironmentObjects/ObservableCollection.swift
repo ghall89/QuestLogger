@@ -21,7 +21,7 @@ class ObservableCollection: ObservableObject, Equatable {
 		let fileManager = FileManager.default
 		if let fileURL = try? fileManager
 			.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-			.appendingPathComponent("game_collection.json") {
+			.appendingPathComponent("Library.quest/game_collection.json") {
 			do {
 				let jsonData = try Data(contentsOf: fileURL)
 				loadedCollection = decodeJSONtoGame(json: jsonData)

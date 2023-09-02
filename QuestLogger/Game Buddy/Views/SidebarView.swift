@@ -66,7 +66,7 @@ struct SidebarView: View {
 				}
 			}
 		}
-		.frame(minWidth: 200)
+		.frame(minWidth: 270)
 	}
 }
 
