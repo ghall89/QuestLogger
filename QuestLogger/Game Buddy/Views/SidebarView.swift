@@ -25,13 +25,15 @@ struct SidebarItemView: View {
 	var destination: String
 	var text: String
 	var icon: String
-	var count: Int
+	var count: Int?
 	
 	var body: some View {
 		NavigationLink(value: destination, label: {
 			Label(LocalizedStringKey(text), systemImage: icon)
 			Spacer()
-			Text("\(count)")
+			if count != nil {
+				Text("\(count!)")
+			}
 		})
 	}
 }

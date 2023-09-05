@@ -17,7 +17,7 @@ struct ResultView: View {
 
 	var body: some View {
 		let displayGame = swapInCollectionGame(inputGame: game)
-		ZStack {
+		ZStack(alignment: .top) {
 			GameCoverView(game: displayGame).id(displayGame.id)
 			if displayGame.wrappedValue.in_collection == true {
 				Image(systemName: "checkmark.circle.fill")

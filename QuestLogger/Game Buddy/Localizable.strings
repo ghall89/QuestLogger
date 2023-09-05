@@ -3,8 +3,8 @@
 "search" = "Games";
 "update_status" = "Update Status";
 "add_game" = "Add Game";
-"in_collection" = "In Collection";
-"delete" = "Delete";
+"in_collection" = "In Library";
+"delete" = "Remove From Library";
 "remove" = "Remove";
 "archive" = "Archive";
 "edit" = "Edit";

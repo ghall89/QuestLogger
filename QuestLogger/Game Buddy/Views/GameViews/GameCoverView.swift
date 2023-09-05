@@ -13,8 +13,6 @@ struct GameCoverView: View {
 	
 	@Binding var game: Game
 	
-	private let roundedRec: any Shape = RoundedRectangle(cornerRadius: 8, style: .continuous)
-	
 	var body: some View {
 		Button(
 			action: {
@@ -36,12 +34,12 @@ struct GameCoverView: View {
 							.aspectRatio(3/4, contentMode: .fill)
 							.frame(maxWidth: .infinity)
 					}
-					.clipShape(AnyShape(roundedRec))
+					.clipShape(ImgMaskRect())
 					.opacity(isHovered ? 0.8 : 1)
 					.scaleEffect(isHovered ? 1.01 : 1)
 					.overlay(content: {
 						if game.id == observableGameDetails.selectedGame?.id {
-							AnyShape(roundedRec)
+							ImgMaskRect()
 								.stroke(Color.accentColor, lineWidth: 3)
 						}
 					})

@@ -111,13 +111,15 @@ struct GameDetailView: View {
 			ScrollView {
 				LazyVStack(alignment: .center) {
 					CachedAsyncImage(url: getImageURL(imageId: selectedGame.cover.image_id)) { image in
-						image.resizable().aspectRatio(contentMode: .fit)
+						image
+							.resizable()
+							.aspectRatio(contentMode: .fit)
 					} placeholder: {
 						LoadingIndicator(animation: .bar, color: .accentColor)
 					}
 					.frame(height: 300)
 					.scaledToFit()
-					.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+					.clipShape(ImgMaskRect())
 					.prettyShadow(.normal)
 					
 					Text(selectedGame.name)
@@ -150,11 +152,14 @@ struct GameDetailView: View {
 					.padding()
 					if selectedGame.in_collection == true {
 						StarRatingView(game: $selectedGame)
-						if selectedGame.notes != nil || selectedGame.notes == "" {
+						if selectedGame.notes != nil && selectedGame.notes != "" {
+							
 							VStack(alignment: .leading, spacing: 10) {
 								Text("Note:")
 									.font(.headline)
 								Markdown(selectedGame.notes ?? "")
+									.multilineTextAlignment(.leading)
+									.frame(maxWidth: .infinity)
 							}
 							.frame(maxWidth: .infinity)
 							.padding()

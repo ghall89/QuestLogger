@@ -32,8 +32,7 @@ struct ContentView: View {
 				VStack {
 					if !searchString.isEmpty {
 						SearchView(searchString: $searchString)
-					}
-					else {
+					} else {
 						FolderWrapperView(category: $selectedCategory)
 					}
 				}
