@@ -34,7 +34,7 @@ struct ContentView: View {
 					if !searchString.isEmpty {
 						SearchView(searchString: $searchString)
 					} else {
-						FolderWrapperView(category: $selectedCategory)
+						FolderView(category: $selectedCategory)
 					}
 				}
 				.frame(minWidth: 600)

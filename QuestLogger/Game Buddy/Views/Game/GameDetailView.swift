@@ -51,7 +51,7 @@ struct GameDetailView: View {
 							})
 						} else {
 							Menu(content: {
-								StatusMenuView(game: $selectedGame, showingAlert: $showingAlert)
+								StatusMenu(game: $selectedGame, showingAlert: $showingAlert)
 							}, label: {
 								Text(LocalizedStringKey(selectedGame.status?.status ?? "Status"))
 							})

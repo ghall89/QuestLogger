@@ -5,17 +5,17 @@ struct FolderView: View {
 	@EnvironmentObject var observableCollection: CollectionViewModel
 	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
 	
-	@Binding var games: [Game]
-	let category: String
+	@State var games: [Game] = []
+	@Binding var category: String
 	
 	@AppStorage("selectedViewSort") var selectedViewSort: String = "alphabetical"
 	
-	init(games: Binding<[Game]>, category: String) {
-		self._games = games
-		self.category = category
-		self._selectedViewSort = AppStorage(wrappedValue: "alphabetical", "selectedViewSort" + category)
-	}
-	
+//	init(games: Binding<[Game]>, category: String) {
+//		self._games = games
+//		self.category = category
+//		self._selectedViewSort = AppStorage(wrappedValue: "alphabetical", "selectedViewSort" + category)
+//	}
+//
 	var body: some View {
 		ZStack(alignment: .top) {
 			ScrollView {
@@ -60,6 +60,23 @@ struct FolderView: View {
 			})
 		}
 		.navigationTitle(LocalizedStringKey(category))
+		.onAppear(perform: {
+			handleFilter()
+		})
+		.onChange(of: category, perform: { _ in
+			handleFilter()
+		})
+		.onChange(of: observableCollection.collection, perform: { _ in
+			handleFilter()
+		})
+	}
+	
+	private func handleFilter() {
+		setFilteredGames(
+			collection: observableCollection.collection,
+			filter: category,
+			games: &games
+		)
 	}
 }
 
