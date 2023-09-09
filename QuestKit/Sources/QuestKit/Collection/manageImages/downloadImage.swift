@@ -9,7 +9,7 @@ public func downloadImage(imageId: String) {
 			return
 		}
 		let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-		let imgDirectory = documentsDirectory.appendingPathComponent("img")
+		let imgDirectory = documentsDirectory.appendingPathComponent("Library.quest/img")
 		do {
 			try FileManager.default.createDirectory(at: imgDirectory, withIntermediateDirectories: true, attributes: nil)
 		} catch {

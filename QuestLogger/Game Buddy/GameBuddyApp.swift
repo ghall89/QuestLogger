@@ -16,8 +16,8 @@ func applyColorScheme(colorScheme: String) -> ColorScheme? {
 @main
 struct GameBuddyApp: App {
 	@Environment(\.openWindow) private var openWindow
-	@StateObject var observableCollection = ObservableCollection()
-	@StateObject var observableGameDetails = ObservableGameDetails()
+	@StateObject var observableCollection = CollectionViewModel()
+	@StateObject var observableGameDetails = SelectedGameViewModel()
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
 	@AppStorage("selectedCategory") var selectedCategory: String = "backlog"
 	
@@ -38,7 +38,7 @@ struct GameBuddyApp: App {
 				})
 		}
 		.commands {
-			MenuBarView(showAboutView: $showAboutView, selectedCategory: $selectedCategory)
+			MenuBar(showAboutView: $showAboutView, selectedCategory: $selectedCategory)
 		}
 		
 		Settings {
