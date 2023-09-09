@@ -4,7 +4,7 @@ func sameColor(_ color1: Color, _ color2: Color) -> Bool {
 	return color1 == color2
 }
 
-struct AppearanceView: View {
+struct AppearancePane: View {
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
 	@AppStorage("blurBackground") var blurBackground = true
 	

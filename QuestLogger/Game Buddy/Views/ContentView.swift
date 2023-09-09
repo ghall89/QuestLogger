@@ -5,12 +5,13 @@ import QuestKit
 struct ContentView: View {
 	@AppStorage("twitchClientID") var clientID: String = ""
 	@AppStorage("twitchClientSecret") var clientSecret: String = ""
-	@EnvironmentObject var observableGameDetails: ObservableGameDetails
-	@EnvironmentObject var observableCollection: ObservableCollection
+	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
+	@EnvironmentObject var observableCollection: CollectionViewModel
 
 	@Binding var selectedCategory: String
 	@State private var searchString: String = ""
 	@State private var apiAlert: Bool = false
+	@State private var searchScope: String = "igdb"
 
 	private var selectedGameBinding: Binding<Game>? {
 		guard let selectedGame = observableGameDetails.selectedGame else { return nil }
@@ -49,6 +50,10 @@ struct ContentView: View {
 				.frame(minWidth: 400)
 			})
 		.searchable(text: $searchString, prompt: "Find Games...")
+		.searchScopes($searchScope) {
+			Text("IGDB").tag("igdb")
+			Text("Library").tag("library")
+		}
 		.alert("Missing API Keys", isPresented: $apiAlert, actions: {
 			Button("Settings", action: {
 				NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)

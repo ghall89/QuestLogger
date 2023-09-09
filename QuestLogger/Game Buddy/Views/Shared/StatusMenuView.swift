@@ -1,8 +1,8 @@
 import SwiftUI
 import QuestKit
 
-struct StatusMenuView: View {
-	@EnvironmentObject var observableCollection: ObservableCollection
+struct StatusMenu: View {
+	@EnvironmentObject var observableCollection: CollectionViewModel
 
 	@Binding var game: Game
 	@Binding var showingAlert: Bool

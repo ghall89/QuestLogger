@@ -2,7 +2,7 @@ import SwiftUI
 import QuestKit
 
 struct FolderWrapperView: View {
-	@EnvironmentObject var observableCollection: ObservableCollection
+	@EnvironmentObject var observableCollection: CollectionViewModel
 	
 	@Binding var category: String
 	

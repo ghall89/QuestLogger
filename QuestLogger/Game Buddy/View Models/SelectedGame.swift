@@ -1,7 +1,7 @@
 import Foundation
 import QuestKit
 
-class ObservableGameDetails: ObservableObject {
+class SelectedGameViewModel: ObservableObject {
 	@Published var selectedGame: Game?
 	@Published var detailSliderOpen: Bool = false
 }

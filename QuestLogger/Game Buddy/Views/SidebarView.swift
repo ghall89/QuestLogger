@@ -1,26 +1,6 @@
 import SwiftUI
 import QuestKit
 
-extension Array: RawRepresentable where Element: Codable {
-	public init?(rawValue: String) {
-		guard let data = rawValue.data(using: .utf8),
-					let result = try? JSONDecoder().decode([Element].self, from: data)
-		else {
-			return nil
-		}
-		self = result
-	}
-	
-	public var rawValue: String {
-		guard let data = try? JSONEncoder().encode(self),
-					let result = String(data: data, encoding: .utf8)
-		else {
-			return "[]"
-		}
-		return result
-	}
-}
-
 struct SidebarItemView: View {
 	var destination: String
 	var text: String
@@ -40,7 +20,7 @@ struct SidebarItemView: View {
 
 struct SidebarView: View {
 	@AppStorage("showArchive") var showArchive: Bool = true
-	@EnvironmentObject var observableCollection: ObservableCollection
+	@EnvironmentObject var observableCollection: CollectionViewModel
 	@Binding var selection: String
 	
 	var body: some View {

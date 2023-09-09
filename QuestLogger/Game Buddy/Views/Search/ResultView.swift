@@ -2,7 +2,7 @@ import SwiftUI
 import QuestKit
 
 func swapInCollectionGame(inputGame: Game) -> Binding<Game> {
-	let observableCollection = ObservableCollection()
+	let observableCollection = CollectionViewModel()
 	if let index = observableCollection.collection.firstIndex(where: { $0.id == inputGame.id }) {
 		return Binding<Game>(
 			get: { observableCollection.collection[index] },

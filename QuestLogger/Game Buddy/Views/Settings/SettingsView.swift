@@ -13,17 +13,17 @@ struct SettingsView: View {
 	
 	var body: some View {
 		TabView {
-			APIView()
+			APIPane()
 				.tabItem {
 					Label("Twitch API", systemImage: "server.rack")
 				}
 				.tag(Tabs.twitchAPI)
-			LibraryView()
+			LibraryPane()
 				.tabItem {
 					Label("Library", systemImage: "books.vertical")
 				}
 				.tag(Tabs.library)
-			AppearanceView()
+			AppearancePane()
 				.tabItem {
 					Label("Appearance", systemImage: "paintbrush")
 				}

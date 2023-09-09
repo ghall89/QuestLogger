@@ -49,7 +49,7 @@ public enum Status: CaseIterable, Codable {
 			case .nowPlaying:
 				return "gamecontroller.fill"
 			case .finished:
-				return "checkmark"
+				return "trophy.fill"
 			case .archived:
 				return "archivebox.fill"
 		}

@@ -3,8 +3,8 @@ import CachedAsyncImage
 import QuestKit
 
 struct GameCoverView: View {
-	@EnvironmentObject var observableGameDetails: ObservableGameDetails
-	@EnvironmentObject var observableCollection: ObservableCollection
+	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
+	@EnvironmentObject var observableCollection: CollectionViewModel
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
 	
 	@State private var showingAlert: Bool = false
@@ -48,7 +48,7 @@ struct GameCoverView: View {
 						isHovered.toggle()
 					})
 					.contextMenu {
-						StatusMenuView(game: $game, showingAlert: $showingAlert)
+						StatusMenu(game: $game, showingAlert: $showingAlert)
 					}
 					.prettyShadow(.tiny)
 					Text(game.name)

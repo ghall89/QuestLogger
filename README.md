@@ -2,6 +2,10 @@
 
 ![GitHub](https://img.shields.io/github/license/ghall89/questlogger-mac)
 
+![GitHub release (with filter)](https://img.shields.io/github/v/release/ghall89/QuestLogger)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T66ELM7)
+
 A macOS application for managing you video game collection. Written in SwiftUI, and uses [IGDB](https://api-docs.igdb.com/#getting-started) as a data source.
 
 ![](./screenshot.png)

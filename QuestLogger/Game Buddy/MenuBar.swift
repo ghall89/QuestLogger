@@ -1,9 +1,10 @@
 import SwiftUI
 import QuestKit
 
-struct MenuBarView: Commands {
+struct MenuBar: Commands {
 	@AppStorage("showArchive") var showArchive: Bool = true
-	@StateObject var observableGameDetails = ObservableGameDetails()
+	@StateObject var observableGameDetails = SelectedGameViewModel()
+	@EnvironmentObject var observableCollection: CollectionViewModel
 	
 	@Binding var showAboutView: Bool
 	@Binding var selectedCategory: String
@@ -36,29 +37,34 @@ struct MenuBarView: Commands {
 			Menu("Move to...", content: {
 				ForEach(Status.allCases, id: \.self, content: { category in
 					Button(LocalizedStringKey(category.status), action: {
-						
+						if let gameId = observableGameDetails.selectedGame?.id {
+							updateGame(id: gameId, collection: &observableCollection.collection, status: category)
+						}
 					})
-					.disabled(enableGameMenu())
+					.disabled(disableGameMenu())
 					.keyboardShortcut(KeyEquivalent(category.status.first!), modifiers: [.option, .command])
 				})
 			})
 			Divider()
-			Button("Delete", action: {
-				
+			Button("Remove from Library", action: {
+				if let gameId = observableGameDetails.selectedGame?.id {
+					removeGame(id: gameId, collection: &observableCollection.collection)
+				}
 			})
-			.disabled(enableGameMenu())
+			.disabled(disableGameMenu())
 			.keyboardShortcut(.delete)
 		})
 
 		CommandGroup(replacing: CommandGroupPlacement.help, addition: {
 			Link("Report an Issue", destination: URL(string:"https://github.com/ghall89/questlogger-mac/issues")!)
+			Link("Support on Ko-Fi", destination: URL(string:"https://ko-fi.com/ghalldev")!)
 		})
 	}
 	
-	private func enableGameMenu() -> Bool {
+	private func disableGameMenu() -> Bool {
 		// check that a game is currently selected and stored in the observableGameDetails object
 		if let inCollection = observableGameDetails.selectedGame?.in_collection {
-			if inCollection {
+			if inCollection == true {
 				return false
 			} else {
 				return true

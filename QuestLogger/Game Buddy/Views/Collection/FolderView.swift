@@ -2,8 +2,8 @@ import SwiftUI
 import QuestKit
 
 struct FolderView: View {
-	@EnvironmentObject var observableCollection: ObservableCollection
-	@EnvironmentObject var observableGameDetails: ObservableGameDetails
+	@EnvironmentObject var observableCollection: CollectionViewModel
+	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
 	
 	@Binding var games: [Game]
 	let category: String
@@ -16,23 +16,6 @@ struct FolderView: View {
 		self._selectedViewSort = AppStorage(wrappedValue: "alphabetical", "selectedViewSort" + category)
 	}
 	
-	private let sortComparisons: [String: (Game, Game) -> Bool] = [
-		"alphabetical": { $0.name.lowercased() < $1.name.lowercased() },
-		"reverse_alphabetical": { $0.name.lowercased() > $1.name.lowercased() },
-		"latest_first": { val1, val2 in
-			guard let date1 = val1.status_date, let date2 = val2.status_date else {
-				return false
-			}
-			return date1 > date2
-		},
-		"oldest_first": { val1, val2 in
-			guard let date1 = val1.status_date, let date2 = val2.status_date else {
-				return false
-			}
-			return date1 < date2
-		}
-	]
-	
 	var body: some View {
 		ZStack(alignment: .top) {
 			ScrollView {
@@ -40,7 +23,7 @@ struct FolderView: View {
 				LazyVGrid(columns: [
 					GridItem(.adaptive(minimum: 120), spacing: 24, alignment: .top),
 				]) {
-					ForEach(games.sorted(by: viewSort), id: \.self.id) { game in
+					ForEach(handleSorting(games: games, sorting: selectedViewSort), id: \.self.id) { game in
 						if let gameIndex = observableCollection.collection.firstIndex(where: { $0.id == game.id }) {
 							GameCoverView(game: $observableCollection.collection[gameIndex])
 								.id(game.id)
@@ -54,7 +37,7 @@ struct FolderView: View {
 			})
 			HStack {
 				Button(action: {
-					getRandomGame()
+					getRandomGame(games: games, selectedGame: observableGameDetails)
 				}, label: {
 					Image(systemName: "shuffle")
 				})
@@ -77,27 +60,6 @@ struct FolderView: View {
 			})
 		}
 		.navigationTitle(LocalizedStringKey(category))
-	}
-	
-	private func viewSort(val1: Game, val2: Game) -> Bool {
-		guard let comparison = sortComparisons[selectedViewSort] else {
-			return false
-		}
-		return comparison(val1, val2)
-	}
-	
-	private func getRandomGame() {
-		
-		if games.isEmpty {
-			return
-		}
-		
-		if let randomGame = games.randomElement() {
-			observableGameDetails.selectedGame = randomGame
-			observableGameDetails.detailSliderOpen.toggle()
-		} else {
-			print("No games exist with these conditions")
-		}
 	}
 }
 

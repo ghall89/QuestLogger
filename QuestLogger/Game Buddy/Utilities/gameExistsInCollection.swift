@@ -1,7 +1,7 @@
 import Foundation
 
 public func gameExistsInCollection(gameId: Int) -> Bool {
-	let observableCollection = ObservableCollection()
+	let observableCollection = CollectionViewModel()
 
 	if observableCollection.collection.contains(where: { $0.id == gameId }) {
 		return true

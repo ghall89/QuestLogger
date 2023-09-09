@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct APIView: View {
+struct APIPane: View {
 	@AppStorage("twitchClientID") var clientID: String = ""
 	@AppStorage("twitchClientSecret") var clientSecret: String = ""
 	

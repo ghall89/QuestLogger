@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LibraryView: View {
+struct LibraryPane: View {
 	@AppStorage("showArchive") var showArchive: Bool = true
 	
 	var body: some View {
