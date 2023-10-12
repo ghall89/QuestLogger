@@ -1,6 +1,5 @@
 import SwiftUI
 import CachedAsyncImage
-import SwiftfulLoadingIndicators
 import QuestKit
 
 struct EditGameView: View {
@@ -22,7 +21,7 @@ struct EditGameView: View {
 					CachedAsyncImage(url: getImageURL(imageId: game.cover.image_id)) { image in
 						image.resizable().aspectRatio(contentMode: .fit)
 					} placeholder: {
-						LoadingIndicator(animation: .bar, color: .accentColor)
+						ProgressView()
 					}
 					.frame(width: 200)
 					.scaledToFit()

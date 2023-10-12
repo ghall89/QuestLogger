@@ -35,7 +35,6 @@ struct SidebarView: View {
 					}
 				}
 			}
-			.collapsible(false)
 			
 			if observableCollection.platforms.count >= 1 {
 				Section("Platforms") {

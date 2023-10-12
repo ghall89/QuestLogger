@@ -7,12 +7,12 @@ struct ContentView: View {
 	@AppStorage("twitchClientSecret") var clientSecret: String = ""
 	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
 	@EnvironmentObject var observableCollection: CollectionViewModel
-
+	
 	@Binding var selectedCategory: String
 	@State private var searchString: String = ""
 	@State private var apiAlert: Bool = false
-	@State private var searchScope: String = "igdb"
-
+	@State private var newGameSheet: Bool = false
+	
 	private var selectedGameBinding: Binding<Game>? {
 		guard let selectedGame = observableGameDetails.selectedGame else { return nil }
 		if selectedGame.in_collection == true {
@@ -23,19 +23,14 @@ struct ContentView: View {
 		}
 		return Binding(get: { selectedGame }, set: { observableGameDetails.selectedGame = $0 })
 	}
-
+	
 	var body: some View {
 		NavigationSplitView(
-
 			sidebar: {
 				SidebarView(selection: $selectedCategory)
 			}, content: {
 				VStack {
-					if !searchString.isEmpty {
-						SearchView(searchString: $searchString)
-					} else {
-						FolderView(category: $selectedCategory)
-					}
+					FolderView(category: $selectedCategory, searchString: $searchString)
 				}
 				.frame(minWidth: 600)
 			}, detail: {
@@ -49,11 +44,19 @@ struct ContentView: View {
 				}
 				.frame(minWidth: 400)
 			})
-		.searchable(text: $searchString, prompt: "Find Games...")
-		.searchScopes($searchScope) {
-			Text("IGDB").tag("igdb")
-			Text("Library").tag("library")
+		.toolbar {
+			ToolbarItem {
+				Button(action: {
+					newGameSheet.toggle()
+				}, label: {
+					Image(systemName: "plus")
+				})
+			}
 		}
+		.sheet(isPresented: $newGameSheet, content: {
+			NewGameView(showSheet: $newGameSheet)
+		})
+		.searchable(text: $searchString, prompt: "Search Collection...")
 		.alert("Missing API Keys", isPresented: $apiAlert, actions: {
 			Button("Settings", action: {
 				NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)

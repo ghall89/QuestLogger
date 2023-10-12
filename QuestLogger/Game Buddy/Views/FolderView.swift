@@ -7,19 +7,36 @@ struct FolderView: View {
 	
 	@State var games: [Game] = []
 	@Binding var category: String
+	@Binding var searchString: String
 	
 	@AppStorage("selectedViewSort") var selectedViewSort: String = "alphabetical"
 	
-//	init(games: Binding<[Game]>, category: String) {
-//		self._games = games
-//		self.category = category
-//		self._selectedViewSort = AppStorage(wrappedValue: "alphabetical", "selectedViewSort" + category)
-//	}
-//
 	var body: some View {
-		ZStack(alignment: .top) {
+		VStack(spacing: 0) {
+			HStack {
+				Button(action: {
+					getRandomGame(games: games, selectedGame: observableGameDetails)
+				}, label: {
+					Image(systemName: "shuffle")
+				})
+				.disabled(games.isEmpty)
+				.padding()
+				Spacer()
+				Picker("Sort", selection: $selectedViewSort, content: {
+					Text(LocalizedStringKey("alphabetical")).tag("alphabetical")
+					Text(LocalizedStringKey("reverse_alphabetical")).tag("reverse_alphabetical")
+					Divider()
+					Text(LocalizedStringKey("oldest_first")).tag("oldest_first")
+					Text(LocalizedStringKey("latest_first")).tag("latest_first")
+				})
+				.frame(width: 200)
+				.padding()
+			}
+			.background(content: {
+				Rectangle()
+					.fill(.thickMaterial)
+			})
 			ScrollView {
-				Spacer(minLength: 50)
 				LazyVGrid(columns: [
 					GridItem(.adaptive(minimum: 120), spacing: 24, alignment: .top),
 				]) {
@@ -35,29 +52,6 @@ struct FolderView: View {
 			.onTapGesture(perform: {
 				observableGameDetails.selectedGame = nil
 			})
-			HStack {
-				Button(action: {
-					getRandomGame(games: games, selectedGame: observableGameDetails)
-				}, label: {
-					Image(systemName: "shuffle")
-				})
-				.disabled(games.isEmpty)
-				.padding()
-				Spacer()
-				Picker("Sort", selection: $selectedViewSort, content: {
-					Text("Alphabetical").tag("alphabetical")
-					Text("Reverse Alphabetical").tag("reverse_alphabetical")
-					Divider()
-					Text("Newest First").tag("latest_first")
-					Text("Oldest First").tag("Oldest_first")
-				})
-				.frame(width: 200)
-				.padding()
-			}
-			.background(content: {
-				Rectangle()
-					.fill(.thickMaterial)
-			})
 		}
 		.navigationTitle(LocalizedStringKey(category))
 		.onAppear(perform: {
@@ -69,14 +63,21 @@ struct FolderView: View {
 		.onChange(of: observableCollection.collection, perform: { _ in
 			handleFilter()
 		})
+//		.onChange(of: searchString, perform: {
+//			handleFilter()
+//		})
 	}
 	
 	private func handleFilter() {
-		setFilteredGames(
-			collection: observableCollection.collection,
-			filter: category,
-			games: &games
-		)
+		if searchString.isEmpty {
+			setFilteredGames(
+				collection: observableCollection.collection,
+				filter: category,
+				games: &games
+			)
+		} else {
+			games = observableCollection.collection.filter { $0.name.lowercased().contains(searchString.lowercased()) }
+		}
 	}
 }
 
