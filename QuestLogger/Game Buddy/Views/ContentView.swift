@@ -28,11 +28,10 @@ struct ContentView: View {
 		NavigationSplitView(
 			sidebar: {
 				SidebarView(selection: $selectedCategory)
+					.navigationSplitViewColumnWidth(min: 240, ideal: 270)
 			}, content: {
-				VStack {
 					FolderView(category: $selectedCategory, searchString: $searchString)
-				}
-				.frame(minWidth: 600)
+					.navigationSplitViewColumnWidth(ideal: 600)
 			}, detail: {
 				VStack {
 					if let selectedGame = selectedGameBinding {
@@ -42,8 +41,9 @@ struct ContentView: View {
 							.font(.title)
 					}
 				}
-				.frame(minWidth: 400)
+				.navigationSplitViewColumnWidth(min: 400, ideal: 400, max: 480)
 			})
+		.frame(minHeight: 800)
 		.toolbar {
 			ToolbarItem {
 				Button(action: {

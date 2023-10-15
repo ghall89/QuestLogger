@@ -8,12 +8,15 @@ struct StatusMenu: View {
 	@Binding var showingAlert: Bool
 	
 	var body: some View {
-		Picker("", selection: $game.status) {
+		Menu("Status") {
 			ForEach(Status.allCases, id: \.self) { status in
 				Button(action: {
 					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: status)
 				}, label: {
 					Text(LocalizedStringKey(status.status)).tag(game.status)
+					if game.status == status {
+						Image(systemName: "checkmark")
+					}
 				})
 			}
 		}

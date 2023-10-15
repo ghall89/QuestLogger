@@ -33,14 +33,17 @@ struct GameDetailView: View {
 				.clipShape(ImgMaskRect())
 				.prettyShadow(.normal)
 				
-				Text(selectedGame.name)
-					.font(.title2)
-					.padding()
-					.multilineTextAlignment(.center)
-				Text(selectedGame.platform ?? "")
-					.font(.subheadline)
-				HStack(spacing: 10) {
+				VStack {
+					Text(selectedGame.name)
+						.font(.title2)
 					
+					
+					Text(selectedGame.platform ?? "")
+						.foregroundStyle(Color.gray)
+				}
+				.multilineTextAlignment(.center)
+				.padding()
+				HStack(spacing: 10) {
 					if selectedGame.in_collection != true {
 						Button(action: {
 							showAddGame.toggle()

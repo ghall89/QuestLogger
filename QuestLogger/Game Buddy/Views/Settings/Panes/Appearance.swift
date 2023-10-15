@@ -6,7 +6,7 @@ func sameColor(_ color1: Color, _ color2: Color) -> Bool {
 
 struct AppearancePane: View {
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
-	@AppStorage("blurBackground") var blurBackground = true
+	@AppStorage("showTitleInGridView") var showTitleInGridView: Bool = false
 	
 	internal struct ColorTheme: Identifiable {
 		let id: UUID = UUID()
@@ -16,7 +16,7 @@ struct AppearancePane: View {
 	
 	var body: some View {
 		VStack {
-//			Toggle("Blur Game Backgrounds", isOn: $blurBackground)
+			Toggle("Show Game Titles in Grid View", isOn: $showTitleInGridView)
 			Picker(selection: $preferredColorScheme, content: {
 				Text("System").tag("system")
 				Text("Light").tag("light")

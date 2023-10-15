@@ -42,7 +42,7 @@ struct FolderView: View {
 				]) {
 					ForEach(handleSorting(games: games, sorting: selectedViewSort), id: \.self.id) { game in
 						if let gameIndex = observableCollection.collection.firstIndex(where: { $0.id == game.id }) {
-							GameCoverView(game: $observableCollection.collection[gameIndex])
+							GameCoverView(game: $observableCollection.collection[gameIndex], captionString: getCaptionString(game: game))
 								.id(game.id)
 						}
 					}
@@ -77,6 +77,14 @@ struct FolderView: View {
 			)
 		} else {
 			games = observableCollection.collection.filter { $0.name.lowercased().contains(searchString.lowercased()) }
+		}
+	}
+	
+	private func getCaptionString(game: Game) -> String {
+		if Status(statusString: category) != nil {
+			return game.platform ?? ""
+		} else {
+			return NSLocalizedString(game.status?.status ?? "", comment: "")
 		}
 	}
 }

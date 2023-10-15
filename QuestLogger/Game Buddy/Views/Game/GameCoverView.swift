@@ -6,12 +6,14 @@ struct GameCoverView: View {
 	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
 	@EnvironmentObject var observableCollection: CollectionViewModel
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
+	@AppStorage("showTitleInGridView") var showTitle: Bool = false
 	
 	@State private var showingAlert: Bool = false
 	@State private var isImageLoaded: Bool = false
 	@State private var isHovered: Bool = false
 	
 	@Binding var game: Game
+	let captionString: String
 	
 	var body: some View {
 		Button(
@@ -51,8 +53,17 @@ struct GameCoverView: View {
 						StatusMenu(game: $game, showingAlert: $showingAlert)
 					}
 					.prettyShadow(.tiny)
-					Text(game.name)
-						.fontWeight(.bold)
+					if showTitle {
+						Text(game.name)
+							.fontWeight(.bold)
+							.multilineTextAlignment(.center)
+							.lineLimit(2)
+							.truncationMode(.tail)
+							.help(game.name)
+					}
+					
+					Text(captionString)
+						.foregroundStyle(Color.gray)
 						.multilineTextAlignment(.center)
 				}
 			})

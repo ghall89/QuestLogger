@@ -63,6 +63,11 @@ struct NewGameView: View {
 				}
 			}
 		}
+		.toolbar {
+			ToolbarItem(placement: .navigation) {
+				Button("Cancel", action: {})
+			}
+		}
 		.frame(width: 400, height: 500)
 	}
 	
