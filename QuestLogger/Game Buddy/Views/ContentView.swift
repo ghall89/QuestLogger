@@ -5,23 +5,22 @@ import QuestKit
 struct ContentView: View {
 	@AppStorage("twitchClientID") var clientID: String = ""
 	@AppStorage("twitchClientSecret") var clientSecret: String = ""
-	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
+	
+	@EnvironmentObject var globalState: GlobalState
 	@EnvironmentObject var observableCollection: CollectionViewModel
 	
 	@Binding var selectedCategory: String
-	@State private var searchString: String = ""
 	@State private var apiAlert: Bool = false
-	@State private var newGameSheet: Bool = false
 	
 	private var selectedGameBinding: Binding<Game>? {
-		guard let selectedGame = observableGameDetails.selectedGame else { return nil }
+		guard let selectedGame = globalState.selectedGame else { return nil }
 		if selectedGame.in_collection == true {
 			return $observableCollection.collection.first(where: { $0.id == selectedGame.id })
 		}
 		if let gameIndex = observableCollection.collection.firstIndex(where: { $0.id == selectedGame.id }) {
 			return $observableCollection.collection[gameIndex]
 		}
-		return Binding(get: { selectedGame }, set: { observableGameDetails.selectedGame = $0 })
+		return Binding(get: { selectedGame }, set: { globalState.selectedGame = $0 })
 	}
 	
 	var body: some View {
@@ -30,8 +29,10 @@ struct ContentView: View {
 				SidebarView(selection: $selectedCategory)
 					.navigationSplitViewColumnWidth(min: 240, ideal: 270)
 			}, content: {
-					FolderView(category: $selectedCategory, searchString: $searchString)
-					.navigationSplitViewColumnWidth(ideal: 600)
+				VStack {
+					FolderView(category: $selectedCategory)
+				}
+				.navigationSplitViewColumnWidth(ideal: 600)
 			}, detail: {
 				VStack {
 					if let selectedGame = selectedGameBinding {
@@ -47,16 +48,17 @@ struct ContentView: View {
 		.toolbar {
 			ToolbarItem {
 				Button(action: {
-					newGameSheet.toggle()
+					globalState.showAddGameSheet.toggle()
 				}, label: {
 					Image(systemName: "plus")
 				})
+				.help("Add Game")
 			}
 		}
-		.sheet(isPresented: $newGameSheet, content: {
-			NewGameView(showSheet: $newGameSheet)
+		.sheet(isPresented: $globalState.showAddGameSheet, content: {
+			NewGameView()
 		})
-		.searchable(text: $searchString, prompt: "Search Collection...")
+		.searchable(text: $globalState.searchString, prompt: "Search Collection...")
 		.alert("Missing API Keys", isPresented: $apiAlert, actions: {
 			Button("Settings", action: {
 				NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)

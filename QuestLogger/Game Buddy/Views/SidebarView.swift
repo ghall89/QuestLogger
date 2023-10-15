@@ -2,17 +2,23 @@ import SwiftUI
 import QuestKit
 
 struct SidebarItemView: View {
+	@EnvironmentObject var observableCollection: CollectionViewModel
+	
 	var destination: String
 	var text: String
 	var icon: String
 	var count: Int?
 	
+	@State private var targeted: Bool = false
+	
 	var body: some View {
 		NavigationLink(value: destination, label: {
-			Label(LocalizedStringKey(text), systemImage: icon)
-			Spacer()
-			if count != nil {
-				Text("\(count!)")
+			HStack {
+				Label(LocalizedStringKey(text), systemImage: icon)
+				Spacer()
+				if count != nil {
+					Text("\(count!)")
+				}
 			}
 		})
 	}

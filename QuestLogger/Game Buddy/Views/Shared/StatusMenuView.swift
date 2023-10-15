@@ -8,7 +8,7 @@ struct StatusMenu: View {
 	@Binding var showingAlert: Bool
 	
 	var body: some View {
-		Menu("Status") {
+		Menu("Move to...") {
 			ForEach(Status.allCases, id: \.self) { status in
 				Button(action: {
 					addOrUpdateGame(game: game, collection: &observableCollection.collection, status: status)

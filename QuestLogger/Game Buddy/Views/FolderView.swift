@@ -3,11 +3,10 @@ import QuestKit
 
 struct FolderView: View {
 	@EnvironmentObject var observableCollection: CollectionViewModel
-	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
+	@EnvironmentObject var globalState: GlobalState
 	
 	@State var games: [Game] = []
 	@Binding var category: String
-	@Binding var searchString: String
 	
 	@AppStorage("selectedViewSort") var selectedViewSort: String = "alphabetical"
 	
@@ -15,7 +14,7 @@ struct FolderView: View {
 		VStack(spacing: 0) {
 			HStack {
 				Button(action: {
-					getRandomGame(games: games, selectedGame: observableGameDetails)
+					getRandomGame(games: games, selectedGame: globalState)
 				}, label: {
 					Image(systemName: "shuffle")
 				})
@@ -44,40 +43,32 @@ struct FolderView: View {
 						if let gameIndex = observableCollection.collection.firstIndex(where: { $0.id == game.id }) {
 							GameCoverView(game: $observableCollection.collection[gameIndex], captionString: getCaptionString(game: game))
 								.id(game.id)
+							
 						}
 					}
 				}
 				.padding()
 			}
 			.onTapGesture(perform: {
-				observableGameDetails.selectedGame = nil
+				globalState.selectedGame = nil
 			})
 		}
 		.navigationTitle(LocalizedStringKey(category))
 		.onAppear(perform: {
 			handleFilter()
 		})
-		.onChange(of: category, perform: { _ in
+		.onChange(of: FilterProperties(category: category, collection: observableCollection.collection, searchString: globalState.searchString)) { _ in
 			handleFilter()
-		})
-		.onChange(of: observableCollection.collection, perform: { _ in
-			handleFilter()
-		})
-//		.onChange(of: searchString, perform: {
-//			handleFilter()
-//		})
+		}
 	}
 	
 	private func handleFilter() {
-		if searchString.isEmpty {
-			setFilteredGames(
-				collection: observableCollection.collection,
-				filter: category,
-				games: &games
-			)
-		} else {
-			games = observableCollection.collection.filter { $0.name.lowercased().contains(searchString.lowercased()) }
-		}
+		setFilteredGames(
+			collection: observableCollection.collection,
+			filter: category,
+			games: &games,
+			search: globalState.searchString
+		)
 	}
 	
 	private func getCaptionString(game: Game) -> String {
@@ -86,6 +77,12 @@ struct FolderView: View {
 		} else {
 			return NSLocalizedString(game.status?.status ?? "", comment: "")
 		}
+	}
+	
+	private struct FilterProperties: Equatable {
+		var category: String
+		var collection: [Game]
+		var searchString: String
 	}
 }
 
