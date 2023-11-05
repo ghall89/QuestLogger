@@ -5,9 +5,11 @@ struct MenuBar: Commands {
 	@AppStorage("showArchive") var showArchive: Bool = true
 	@StateObject var globalState = GlobalState()
 	@EnvironmentObject var observableCollection: CollectionViewModel
+	@Environment(\.isSearching) private var isSearching
 	
 	@Binding var showAboutView: Bool
 	@Binding var selectedCategory: String
+	@Binding var showAddGameSheet: Bool
 	
 	var body: some Commands {
 		CommandGroup(replacing: CommandGroupPlacement.appInfo) {
@@ -16,8 +18,12 @@ struct MenuBar: Commands {
 			}
 		}
 		CommandGroup(replacing: CommandGroupPlacement.newItem) {
+			Button("Add Game", action: {
+				showAddGameSheet = true
+			})
+			.keyboardShortcut(KeyboardShortcut(KeyEquivalent("N")))
 			Button("Search", action: {
-				
+
 			})
 			.keyboardShortcut(KeyboardShortcut(KeyEquivalent("F")))
 		}

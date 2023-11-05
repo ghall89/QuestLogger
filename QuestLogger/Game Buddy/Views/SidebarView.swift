@@ -21,6 +21,16 @@ struct SidebarItemView: View {
 				}
 			}
 		})
+		.dropDestination(for: Game.self) { droppedGames, location in
+			print("Dropped!")
+			droppedGames.forEach { game in
+				updateGame(id: game.id, collection: &observableCollection.collection, status: .backlog)
+			}
+			
+			return true
+		} isTargeted: { isTargeted in
+			targeted = isTargeted
+		}
 	}
 }
 

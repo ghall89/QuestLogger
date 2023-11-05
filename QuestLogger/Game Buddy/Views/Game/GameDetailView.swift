@@ -7,8 +7,6 @@ import PopupView
 struct GameDetailView: View {
 	@EnvironmentObject var observableCollection: CollectionViewModel
 	
-	@AppStorage("blurBackground") var blurBackground = true
-	
 	@Binding var selectedGame: Game
 	
 	@State private var isImageLoaded = false
@@ -71,9 +69,13 @@ struct GameDetailView: View {
 						VStack(alignment: .leading, spacing: 10) {
 							Text("Note:")
 								.font(.headline)
-							Markdown(selectedGame.notes ?? "")
-								.multilineTextAlignment(.leading)
-								.frame(maxWidth: .infinity)
+							VStack(alignment: .leading) {
+								Markdown(selectedGame.notes ?? "")
+									.multilineTextAlignment(.leading)
+									.frame(maxWidth: .infinity)
+									.padding()
+							}
+							.background(Material.thin)
 						}
 						.frame(maxWidth: .infinity)
 						.padding()

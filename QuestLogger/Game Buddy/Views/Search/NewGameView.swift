@@ -15,6 +15,9 @@ struct NewGameView: View {
 			HStack {
 				TextField("Find Games...", text: $searchString)
 					.textFieldStyle(.roundedBorder)
+					.onSubmit {
+						searchAction()
+					}
 				Button("Search", action: {
 					searchAction()
 				})

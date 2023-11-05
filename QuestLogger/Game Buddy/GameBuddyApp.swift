@@ -41,7 +41,7 @@ struct GameBuddyApp: App {
 				})
 		}
 		.commands {
-			MenuBar(showAboutView: $showAboutView, selectedCategory: $selectedCategory)
+			MenuBar(showAboutView: $showAboutView, selectedCategory: $selectedCategory, showAddGameSheet: $globalState.showAddGameSheet)
 		}
 		
 		Settings {
