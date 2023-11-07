@@ -23,7 +23,7 @@ public func getByCategory(category: String, completionHandler: @escaping (_ game
 	queryController(params: bodyString) {result in
 		switch result {
 			case .success(let data):
-				let response = decodeJSONtoGame(json: data)
+				let response = decodeJSON(json: data, model: Game.self)
 				completionHandler(response)
 			case .failure(let error):
 				print(error)

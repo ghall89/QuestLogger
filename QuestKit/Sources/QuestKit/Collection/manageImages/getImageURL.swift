@@ -2,7 +2,7 @@ import Foundation
 
 public func getImageURL(imageId: String) -> URL {
 	let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-	let fileURL = documentsDirectory.appendingPathComponent("img/\(imageId).png")
+	let fileURL = documentsDirectory.appendingPathComponent("Library.quest/img/\(imageId).png")
 	if FileManager.default.fileExists(atPath: fileURL.path) {
 		return fileURL
 	}

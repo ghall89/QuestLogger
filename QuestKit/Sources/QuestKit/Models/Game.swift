@@ -1,6 +1,8 @@
 import Foundation
+import SwiftUI
+import UniformTypeIdentifiers
 
-public struct Game: Codable, Identifiable, Equatable {
+public struct Game: Codable, Identifiable, Equatable, Transferable {	
 	public let id: Int
 	public var cover: Img
 	public var name: String
@@ -33,6 +35,10 @@ public struct Game: Codable, Identifiable, Equatable {
 		case rating
 		case notes
 	}
+	
+	static public var transferRepresentation: some TransferRepresentation {
+		CodableRepresentation(contentType: .draggedGame)
+	}
 }
 
 public struct Img: Codable, Identifiable {
@@ -43,4 +49,8 @@ public struct Img: Codable, Identifiable {
 		case id
 		case image_id
 	}
+}
+
+extension UTType {
+	static let draggedGame = UTType(exportedAs: "com.ghalldev.draggableGame")
 }

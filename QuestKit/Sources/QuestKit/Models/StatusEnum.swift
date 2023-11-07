@@ -6,6 +6,7 @@ public enum Status: CaseIterable, Codable {
 	case backlog
 	case nowPlaying
 	case finished
+	case paused
 	case archived
 	
 	public init?(statusString: String) {
@@ -18,6 +19,8 @@ public enum Status: CaseIterable, Codable {
 				self = .nowPlaying
 			case "finished":
 				self = .finished
+			case "paused":
+				self = .paused
 			case "archived":
 				self = .archived
 			default:
@@ -35,6 +38,8 @@ public enum Status: CaseIterable, Codable {
 				return "now_playing"
 			case .finished:
 				return "finished"
+			case .paused:
+				return "paused"
 			case .archived:
 				return "archived"
 		}
@@ -50,6 +55,8 @@ public enum Status: CaseIterable, Codable {
 				return "gamecontroller.fill"
 			case .finished:
 				return "trophy.fill"
+			case .paused:
+				return "pause.fill"
 			case .archived:
 				return "archivebox.fill"
 		}

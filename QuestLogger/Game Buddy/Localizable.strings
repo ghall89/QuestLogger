@@ -48,6 +48,7 @@
 "backlog" = "Backlog";
 "now_playing" = "Now Playing";
 "finished" = "Finished";
+"paused" = "Paused";
 "archived" = "Archived";
 
 // categories
@@ -58,10 +59,10 @@
 // sorting options
 "latest_started" = "Latest Started";
 "oldest_started" = "Oldest Started";
-"alphabetical" = "Alphabetical";
-"reverse_alphabetical" = "Reverse Alphabetical";
-"latest_first" = "Latest Added";
-"oldest_first" = "Oldest Added";
+"alphabetical" = "Alphabetical (Ascending)";
+"reverse_alphabetical" = "Alphabetical (Descending)";
+"latest_first" = "Date Added (Descending)";
+"oldest_first" = "Date Added (Ascending)";
 
 // misc
 "release_date" = "Release Date";

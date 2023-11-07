@@ -39,9 +39,6 @@ struct AboutView: View {
 						Link(destination: URL(string: "https://github.com/gonzalezreal/swift-markdown-ui")!, label: {
 							Text("MarkdownUI")
 						})
-						Link(destination: URL(string: "https://github.com/SwiftfulThinking/SwiftfulLoadingIndicators")!, label: {
-							Text("SwiftfulLoadingIndicators")
-						})
 					}
 					Section("Data Provided By") {
 						Link(destination: URL(string: "https://www.igdb.com")!, label: {

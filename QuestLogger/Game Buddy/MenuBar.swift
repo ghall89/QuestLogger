@@ -3,11 +3,13 @@ import QuestKit
 
 struct MenuBar: Commands {
 	@AppStorage("showArchive") var showArchive: Bool = true
-	@StateObject var observableGameDetails = SelectedGameViewModel()
+	@StateObject var globalState = GlobalState()
 	@EnvironmentObject var observableCollection: CollectionViewModel
+	@Environment(\.isSearching) private var isSearching
 	
 	@Binding var showAboutView: Bool
 	@Binding var selectedCategory: String
+	@Binding var showAddGameSheet: Bool
 	
 	var body: some Commands {
 		CommandGroup(replacing: CommandGroupPlacement.appInfo) {
@@ -16,8 +18,12 @@ struct MenuBar: Commands {
 			}
 		}
 		CommandGroup(replacing: CommandGroupPlacement.newItem) {
+			Button("Add Game", action: {
+				showAddGameSheet = true
+			})
+			.keyboardShortcut(KeyboardShortcut(KeyEquivalent("N")))
 			Button("Search", action: {
-				
+
 			})
 			.keyboardShortcut(KeyboardShortcut(KeyEquivalent("F")))
 		}
@@ -37,7 +43,7 @@ struct MenuBar: Commands {
 			Menu("Move to...", content: {
 				ForEach(Status.allCases, id: \.self, content: { category in
 					Button(LocalizedStringKey(category.status), action: {
-						if let gameId = observableGameDetails.selectedGame?.id {
+						if let gameId = globalState.selectedGame?.id {
 							updateGame(id: gameId, collection: &observableCollection.collection, status: category)
 						}
 					})
@@ -47,7 +53,7 @@ struct MenuBar: Commands {
 			})
 			Divider()
 			Button("Remove from Library", action: {
-				if let gameId = observableGameDetails.selectedGame?.id {
+				if let gameId = globalState.selectedGame?.id {
 					removeGame(id: gameId, collection: &observableCollection.collection)
 				}
 			})
@@ -62,8 +68,8 @@ struct MenuBar: Commands {
 	}
 	
 	private func disableGameMenu() -> Bool {
-		// check that a game is currently selected and stored in the observableGameDetails object
-		if let inCollection = observableGameDetails.selectedGame?.in_collection {
+		// check that a game is currently selected and stored in the globalState object
+		if let inCollection = globalState.selectedGame?.in_collection {
 			if inCollection == true {
 				return false
 			} else {

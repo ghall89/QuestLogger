@@ -24,7 +24,7 @@ class CollectionViewModel: ObservableObject, Equatable {
 			.appendingPathComponent("Library.quest/game_collection.json") {
 			do {
 				let jsonData = try Data(contentsOf: fileURL)
-				loadedCollection = decodeJSONtoGame(json: jsonData)
+				loadedCollection = decodeJSON(json: jsonData, model: Game.self)
 				collection = loadedCollection
 			} catch {
 				print(error.localizedDescription)

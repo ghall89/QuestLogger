@@ -3,53 +3,31 @@ import QuestKit
 
 struct FolderView: View {
 	@EnvironmentObject var observableCollection: CollectionViewModel
-	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
+	@EnvironmentObject var globalState: GlobalState
 	
 	@State var games: [Game] = []
 	@Binding var category: String
 	
 	@AppStorage("selectedViewSort") var selectedViewSort: String = "alphabetical"
 	
-//	init(games: Binding<[Game]>, category: String) {
-//		self._games = games
-//		self.category = category
-//		self._selectedViewSort = AppStorage(wrappedValue: "alphabetical", "selectedViewSort" + category)
-//	}
-//
 	var body: some View {
-		ZStack(alignment: .top) {
-			ScrollView {
-				Spacer(minLength: 50)
-				LazyVGrid(columns: [
-					GridItem(.adaptive(minimum: 120), spacing: 24, alignment: .top),
-				]) {
-					ForEach(handleSorting(games: games, sorting: selectedViewSort), id: \.self.id) { game in
-						if let gameIndex = observableCollection.collection.firstIndex(where: { $0.id == game.id }) {
-							GameCoverView(game: $observableCollection.collection[gameIndex])
-								.id(game.id)
-						}
-					}
-				}
-				.padding()
-			}
-			.onTapGesture(perform: {
-				observableGameDetails.selectedGame = nil
-			})
+		VStack(spacing: 0) {
 			HStack {
 				Button(action: {
-					getRandomGame(games: games, selectedGame: observableGameDetails)
+					getRandomGame(games: games, selectedGame: globalState)
 				}, label: {
 					Image(systemName: "shuffle")
 				})
+				.help("Random Game")
 				.disabled(games.isEmpty)
 				.padding()
 				Spacer()
 				Picker("Sort", selection: $selectedViewSort, content: {
-					Text("Alphabetical").tag("alphabetical")
-					Text("Reverse Alphabetical").tag("reverse_alphabetical")
+					Text(LocalizedStringKey("alphabetical")).tag("alphabetical")
+					Text(LocalizedStringKey("reverse_alphabetical")).tag("reverse_alphabetical")
 					Divider()
-					Text("Newest First").tag("latest_first")
-					Text("Oldest First").tag("Oldest_first")
+					Text(LocalizedStringKey("oldest_first")).tag("oldest_first")
+					Text(LocalizedStringKey("latest_first")).tag("latest_first")
 				})
 				.frame(width: 200)
 				.padding()
@@ -58,25 +36,54 @@ struct FolderView: View {
 				Rectangle()
 					.fill(.thickMaterial)
 			})
+			ScrollView {
+				LazyVGrid(columns: [
+					GridItem(.adaptive(minimum: 120), spacing: 24, alignment: .top),
+				]) {
+					ForEach(handleSorting(games: games, sorting: selectedViewSort), id: \.self.id) { game in
+						if let gameIndex = observableCollection.collection.firstIndex(where: { $0.id == game.id }) {
+							GameCoverView(game: $observableCollection.collection[gameIndex], captionString: getCaptionString(game: game))
+								.id(game.id)
+							
+						}
+					}
+				}
+				.padding()
+			}
+			.onTapGesture(perform: {
+				globalState.selectedGame = nil
+			})
 		}
 		.navigationTitle(LocalizedStringKey(category))
 		.onAppear(perform: {
 			handleFilter()
 		})
-		.onChange(of: category, perform: { _ in
+		.onChange(of: FilterProperties(category: category, collection: observableCollection.collection, searchString: globalState.searchString)) { _ in
 			handleFilter()
-		})
-		.onChange(of: observableCollection.collection, perform: { _ in
-			handleFilter()
-		})
+		}
 	}
 	
 	private func handleFilter() {
 		setFilteredGames(
 			collection: observableCollection.collection,
 			filter: category,
-			games: &games
+			games: &games,
+			search: globalState.searchString
 		)
+	}
+	
+	private func getCaptionString(game: Game) -> String {
+		if Status(statusString: category) != nil {
+			return game.platform ?? ""
+		} else {
+			return NSLocalizedString(game.status?.status ?? "", comment: "")
+		}
+	}
+	
+	private struct FilterProperties: Equatable {
+		var category: String
+		var collection: [Game]
+		var searchString: String
 	}
 }
 

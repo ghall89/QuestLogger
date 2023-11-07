@@ -1,9 +1,8 @@
 import SwiftUI
-import SwiftfulLoadingIndicators
 import QuestKit
 
 struct SearchView: View {
-	@Environment(\.presentationMode) var presentationMode
+	@Environment(\.dismiss) var dismiss
 	
 	@Binding var searchString: String
 
@@ -34,14 +33,14 @@ struct SearchView: View {
 		ScrollViewReader { _ in
 			ScrollView {
 				if loading {
-					LoadingIndicator(animation: .bar, color: .accentColor)
+					ProgressView()
 						.offset(y: 10)
 				} else if searchFieldFocused || gameList.count >= 1 {
 					LazyVGrid(columns: [
 						GridItem(.adaptive(minimum: 120), spacing: 24, alignment: .top),
 					]) {
 						ForEach($gameList) { game in
-							ResultView(game: game)
+//							ResultView(game: game)
 						}
 					}.padding()
 				} else {
@@ -62,7 +61,7 @@ struct SearchView: View {
 		}
 		.alert(LocalizedStringKey("noInternetTitle"), isPresented: $showConnectionAlert, actions: {
 			Button("Ok", action: {
-				self.presentationMode.wrappedValue.dismiss()
+				self.dismiss()
 			})
 		}, message: {
 			Text(LocalizedStringKey("noInternetMessage"))

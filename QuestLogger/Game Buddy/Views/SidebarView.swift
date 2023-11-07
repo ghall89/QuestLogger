@@ -2,19 +2,35 @@ import SwiftUI
 import QuestKit
 
 struct SidebarItemView: View {
+	@EnvironmentObject var observableCollection: CollectionViewModel
+	
 	var destination: String
 	var text: String
 	var icon: String
 	var count: Int?
 	
+	@State private var targeted: Bool = false
+	
 	var body: some View {
 		NavigationLink(value: destination, label: {
-			Label(LocalizedStringKey(text), systemImage: icon)
-			Spacer()
-			if count != nil {
-				Text("\(count!)")
+			HStack {
+				Label(LocalizedStringKey(text), systemImage: icon)
+				Spacer()
+				if count != nil {
+					Text("\(count!)")
+				}
 			}
 		})
+		.dropDestination(for: Game.self) { droppedGames, location in
+			print("Dropped!")
+			droppedGames.forEach { game in
+				updateGame(id: game.id, collection: &observableCollection.collection, status: .backlog)
+			}
+			
+			return true
+		} isTargeted: { isTargeted in
+			targeted = isTargeted
+		}
 	}
 }
 
@@ -35,7 +51,6 @@ struct SidebarView: View {
 					}
 				}
 			}
-			.collapsible(false)
 			
 			if observableCollection.platforms.count >= 1 {
 				Section("Platforms") {
@@ -48,7 +63,6 @@ struct SidebarView: View {
 				}
 			}
 		}
-		.frame(minWidth: 270)
 	}
 }
 

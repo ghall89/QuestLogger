@@ -3,20 +3,22 @@ import CachedAsyncImage
 import QuestKit
 
 struct GameCoverView: View {
-	@EnvironmentObject var observableGameDetails: SelectedGameViewModel
+	@EnvironmentObject var globalState: GlobalState
 	@EnvironmentObject var observableCollection: CollectionViewModel
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
+	@AppStorage("showTitleInGridView") var showTitle: Bool = false
 	
 	@State private var showingAlert: Bool = false
 	@State private var isImageLoaded: Bool = false
 	@State private var isHovered: Bool = false
 	
 	@Binding var game: Game
+	let captionString: String
 	
 	var body: some View {
 		Button(
 			action: {
-				observableGameDetails.selectedGame = game
+				globalState.selectedGame = game
 			}, label: {
 				VStack {
 					AsyncImage(url: getImageURL(imageId: game.cover.image_id)) { image in
@@ -38,7 +40,7 @@ struct GameCoverView: View {
 					.opacity(isHovered ? 0.8 : 1)
 					.scaleEffect(isHovered ? 1.01 : 1)
 					.overlay(content: {
-						if game.id == observableGameDetails.selectedGame?.id {
+						if game.id == globalState.selectedGame?.id {
 							ImgMaskRect()
 								.stroke(Color.accentColor, lineWidth: 3)
 						}
@@ -51,10 +53,20 @@ struct GameCoverView: View {
 						StatusMenu(game: $game, showingAlert: $showingAlert)
 					}
 					.prettyShadow(.tiny)
-					Text(game.name)
-						.fontWeight(.bold)
+					if showTitle {
+						Text(game.name)
+							.fontWeight(.bold)
+							.multilineTextAlignment(.center)
+							.lineLimit(2)
+							.truncationMode(.tail)
+							.help(game.name)
+					}
+					
+					Text(captionString)
+						.foregroundStyle(Color.gray)
 						.multilineTextAlignment(.center)
 				}
+				.draggable(game)
 			})
 		.buttonStyle(.plain)
 		.alert(LocalizedStringKey("confirmDeleteTitle"), isPresented: $showingAlert) {

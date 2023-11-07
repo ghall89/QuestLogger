@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import QuestKit
 
 func applyColorScheme(colorScheme: String) -> ColorScheme? {
@@ -16,8 +17,10 @@ func applyColorScheme(colorScheme: String) -> ColorScheme? {
 @main
 struct GameBuddyApp: App {
 	@Environment(\.openWindow) private var openWindow
+	
 	@StateObject var observableCollection = CollectionViewModel()
-	@StateObject var observableGameDetails = SelectedGameViewModel()
+	@StateObject var globalState = GlobalState()
+	
 	@AppStorage("preferredColorScheme") var preferredColorScheme: String = "system"
 	@AppStorage("selectedCategory") var selectedCategory: String = "backlog"
 	
@@ -27,7 +30,7 @@ struct GameBuddyApp: App {
 		WindowGroup {
 			ContentView(selectedCategory: $selectedCategory)
 				.environmentObject(observableCollection)
-				.environmentObject(observableGameDetails)
+				.environmentObject(globalState)
 				.onAppear {
 					getMissingCovertArt(collection: observableCollection.collection)
 					NSWindow.allowsAutomaticWindowTabbing = false
@@ -38,7 +41,7 @@ struct GameBuddyApp: App {
 				})
 		}
 		.commands {
-			MenuBar(showAboutView: $showAboutView, selectedCategory: $selectedCategory)
+			MenuBar(showAboutView: $showAboutView, selectedCategory: $selectedCategory, showAddGameSheet: $globalState.showAddGameSheet)
 		}
 		
 		Settings {
