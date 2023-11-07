@@ -314,6 +314,7 @@
 				D3384A1029E988AF00586931 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				D38E663B2A97A1300030026F /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
 				D3A24C142AAA6B9700583E47 /* XCRemoteSwiftPackageReference "PopupView" */,
+				D3DDBFDB2AFA7A3400D92764 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = D3AE29EA29E4BDB1000CA2D4 /* Products */;
 			projectDirPath = "";
@@ -638,6 +639,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.0;
+			};
+		};
+		D3DDBFDB2AFA7A3400D92764 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

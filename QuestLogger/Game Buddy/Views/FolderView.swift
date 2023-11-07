@@ -18,6 +18,7 @@ struct FolderView: View {
 				}, label: {
 					Image(systemName: "shuffle")
 				})
+				.help("Random Game")
 				.disabled(games.isEmpty)
 				.padding()
 				Spacer()
