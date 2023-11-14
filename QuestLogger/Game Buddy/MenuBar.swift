@@ -1,5 +1,6 @@
 import SwiftUI
 import QuestKit
+import ReleaseNotificationKit
 
 struct MenuBar: Commands {
 	@AppStorage("showArchive") var showArchive: Bool = true
@@ -41,44 +42,10 @@ struct MenuBar: Commands {
 			}
 			Divider()
 		})
-		
-		CommandMenu("Game", content: {
-			Menu("Move to...", content: {
-				ForEach(Status.allCases, id: \.self, content: { category in
-					Button(LocalizedStringKey(category.status), action: {
-						if let gameId = globalState.selectedGame?.id {
-							updateGame(id: gameId, collection: &observableCollection.collection, status: category)
-						}
-					})
-					.disabled(disableGameMenu())
-					.keyboardShortcut(KeyEquivalent(category.status.first!), modifiers: [.option, .command])
-				})
-			})
-			Divider()
-			Button("Remove from Library", action: {
-				if let gameId = globalState.selectedGame?.id {
-					removeGame(id: gameId, collection: &observableCollection.collection)
-				}
-			})
-			.disabled(disableGameMenu())
-			.keyboardShortcut(.delete)
-		})
 
 		CommandGroup(replacing: CommandGroupPlacement.help, addition: {
 			Link("Report an Issue", destination: URL(string:"https://github.com/ghall89/questlogger-mac/issues")!)
 			Link("Support on Ko-Fi", destination: URL(string:"https://ko-fi.com/ghalldev")!)
 		})
-	}
-	
-	private func disableGameMenu() -> Bool {
-		// check that a game is currently selected and stored in the globalState object
-		if let inCollection = globalState.selectedGame?.in_collection {
-			if inCollection == true {
-				return false
-			} else {
-				return true
-			}
-		}
-		return true
 	}
 }

@@ -2,7 +2,6 @@ import SwiftUI
 import MarkdownUI
 import CachedAsyncImage
 import QuestKit
-import PopupView
 
 struct GameDetailView: View {
 	@EnvironmentObject var observableCollection: CollectionViewModel
