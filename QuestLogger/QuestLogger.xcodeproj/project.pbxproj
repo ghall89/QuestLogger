@@ -32,7 +32,6 @@
 		D3AE29ED29E4BDB1000CA2D4 /* GameBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AE29EC29E4BDB1000CA2D4 /* GameBuddyApp.swift */; };
 		D3AE29F129E4BDB2000CA2D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3AE29F029E4BDB2000CA2D4 /* Assets.xcassets */; };
 		D3AE29F429E4BDB2000CA2D4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3AE29F329E4BDB2000CA2D4 /* Preview Assets.xcassets */; };
-		D3BD742D2AFE7B7A008A1B11 /* ReleaseNotificationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D3BD742C2AFE7B7A008A1B11 /* ReleaseNotificationKit */; };
 		D3BF03972AABAC8600BC03EA /* PlatformPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BF03962AABAC8600BC03EA /* PlatformPickerView.swift */; };
 		D3C2E8B62A966E6100566E0B /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C2E8B52A966E6100566E0B /* MenuBar.swift */; };
 		D3CB948D2A9D688200CE27C2 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CB948C2A9D688200CE27C2 /* Library.swift */; };
@@ -90,7 +89,6 @@
 			files = (
 				D3384A1229E988AF00586931 /* CachedAsyncImage in Frameworks */,
 				D35F9AB42A9B8B7E00AFEDAC /* QuestKit in Frameworks */,
-				D3BD742D2AFE7B7A008A1B11 /* ReleaseNotificationKit in Frameworks */,
 				D38E663D2A97A1300030026F /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,7 +278,6 @@
 				D3384A1129E988AF00586931 /* CachedAsyncImage */,
 				D38E663C2A97A1300030026F /* MarkdownUI */,
 				D35F9AB32A9B8B7E00AFEDAC /* QuestKit */,
-				D3BD742C2AFE7B7A008A1B11 /* ReleaseNotificationKit */,
 			);
 			productName = "Game Buddy";
 			productReference = D3AE29E929E4BDB1000CA2D4 /* QuestLogger.app */;
@@ -647,10 +644,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D38E663B2A97A1300030026F /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
 			productName = MarkdownUI;
-		};
-		D3BD742C2AFE7B7A008A1B11 /* ReleaseNotificationKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ReleaseNotificationKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

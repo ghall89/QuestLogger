@@ -1,6 +1,5 @@
 import SwiftUI
 import QuestKit
-import ReleaseNotificationKit
 
 struct MenuBar: Commands {
 	@AppStorage("showArchive") var showArchive: Bool = true
