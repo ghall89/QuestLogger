@@ -80,6 +80,7 @@ QuestKit is a Swift Package that handles QuestLoggers data structures, as well a
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [MarkdownUI](https://github.com/gonzalezreal/swift-markdown-ui)
 - [SwiftUI CachedAsyncImage](https://github.com/lorenzofiamingo/swiftui-cached-async-image)
+- [ReleaseNotificationKit](https://github.com/ghall89/ReleaseNotificationKit)
 
 ## License
 

@@ -23,7 +23,6 @@
 		D35F9AB42A9B8B7E00AFEDAC /* QuestKit in Frameworks */ = {isa = PBXBuildFile; productRef = D35F9AB32A9B8B7E00AFEDAC /* QuestKit */; };
 		D38E663D2A97A1300030026F /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = D38E663C2A97A1300030026F /* MarkdownUI */; };
 		D39DDA0E29FD83FA001FB62C /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39DDA0D29FD83FA001FB62C /* Appearance.swift */; };
-		D3A24C162AAA6B9700583E47 /* PopupView in Frameworks */ = {isa = PBXBuildFile; productRef = D3A24C152AAA6B9700583E47 /* PopupView */; };
 		D3A362392AACC834008B997C /* sortGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A362382AACC834008B997C /* sortGames.swift */; };
 		D3A3623B2AACC8A1008B997C /* getRandomGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3623A2AACC8A1008B997C /* getRandomGame.swift */; };
 		D3A3623D2AACCBA3008B997C /* codableArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3623C2AACCBA3008B997C /* codableArray.swift */; };
@@ -90,7 +89,6 @@
 			files = (
 				D3384A1229E988AF00586931 /* CachedAsyncImage in Frameworks */,
 				D35F9AB42A9B8B7E00AFEDAC /* QuestKit in Frameworks */,
-				D3A24C162AAA6B9700583E47 /* PopupView in Frameworks */,
 				D38E663D2A97A1300030026F /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,7 +278,6 @@
 				D3384A1129E988AF00586931 /* CachedAsyncImage */,
 				D38E663C2A97A1300030026F /* MarkdownUI */,
 				D35F9AB32A9B8B7E00AFEDAC /* QuestKit */,
-				D3A24C152AAA6B9700583E47 /* PopupView */,
 			);
 			productName = "Game Buddy";
 			productReference = D3AE29E929E4BDB1000CA2D4 /* QuestLogger.app */;
@@ -313,8 +310,6 @@
 			packageReferences = (
 				D3384A1029E988AF00586931 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				D38E663B2A97A1300030026F /* XCRemoteSwiftPackageReference "swift-markdown-ui" */,
-				D3A24C142AAA6B9700583E47 /* XCRemoteSwiftPackageReference "PopupView" */,
-				D3DDBFDB2AFA7A3400D92764 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = D3AE29EA29E4BDB1000CA2D4 /* Products */;
 			projectDirPath = "";
@@ -542,7 +537,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghall.dev.QuestLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = macosx;
@@ -581,7 +576,7 @@
 					"@executable_path/Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghall.dev.QuestLogger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = macosx;
@@ -633,22 +628,6 @@
 				minimumVersion = 2.1.0;
 			};
 		};
-		D3A24C142AAA6B9700583E47 /* XCRemoteSwiftPackageReference "PopupView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/exyte/PopupView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-		D3DDBFDB2AFA7A3400D92764 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -665,11 +644,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D38E663B2A97A1300030026F /* XCRemoteSwiftPackageReference "swift-markdown-ui" */;
 			productName = MarkdownUI;
-		};
-		D3A24C152AAA6B9700583E47 /* PopupView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D3A24C142AAA6B9700583E47 /* XCRemoteSwiftPackageReference "PopupView" */;
-			productName = PopupView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
