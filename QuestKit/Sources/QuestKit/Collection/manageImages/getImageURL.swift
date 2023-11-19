@@ -1,8 +1,12 @@
 import Foundation
+import SwiftUI
 
 public func getImageURL(imageId: String) -> URL {
-	let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-	let fileURL = documentsDirectory.appendingPathComponent("Library.quest/img/\(imageId).png")
+	@AppStorage("customDirectoryURL") var customDirectoryURL: URL = URL(string: "~/Documents")!
+
+	var fileURL = customDirectoryURL
+	fileURL.append(path: "Library.quest/img/\(imageId).png")
+	
 	if FileManager.default.fileExists(atPath: fileURL.path) {
 		return fileURL
 	}
