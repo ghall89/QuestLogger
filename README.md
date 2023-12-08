@@ -11,6 +11,7 @@ A macOS application for managing you video game collection. Written in SwiftUI, 
 ![](./screenshot.png)
 
 ## Table of Contents
+- [Installation](#Installation)
 - [Setting Up](#Setting-Up)
 - [Compile From Source](#Compile-From-Source)
 	- [Prerequisites](#Prerequisites)
@@ -26,15 +27,16 @@ A macOS application for managing you video game collection. Written in SwiftUI, 
 
 - An Intel or Apple Silicon Mac running MacOS 13 Ventura or later
 
-### Instructions
+### Homebrew
 
-- [Download](https://github.com/ghall89/questlogger-mac/releases) the latest release of QuestLogger
-- Unzip the `QuestLogger.app.zip` in your Downloads folder
-- Move `QuestLogger.app` to your Applications folder in either Macintosh HD or your user folder
+The suggested method for installing QuestLogger is through [Homebrew](https://brew.sh).
+
+1. Add the 'ghall90/apps' tap with `brew tap ghall89/apps` 
+2. Install QuestLogger with `brew install --cask questlogger`
+
+Alternatively, you can [manually download](https://github.com/ghall89/questlogger-mac/releases) the latest release of QuestLogger.
 
 ## Setting Up
-
-__Important:__ QuestLogger is considered in early alpha.
 
 Follow the instructions [here](https://api-docs.igdb.com/#account-creation) if you don't already have a Twitch developer account.
 
