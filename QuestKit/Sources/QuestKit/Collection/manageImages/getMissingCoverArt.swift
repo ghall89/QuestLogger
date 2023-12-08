@@ -1,10 +1,13 @@
 import Foundation
+import SwiftUI
 
 public func getMissingCovertArt(collection: [Game]) {
-	let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+	@AppStorage("customDirectoryURL") var customDirectoryURL: URL = URL(string: "~/Documents")!
+
 	collection.forEach { game in
 		let imageId = game.cover.image_id
-		let fileURL = documentsDirectory.appendingPathComponent("Library.quest/img/\(imageId).png")
+		var fileURL = customDirectoryURL
+		fileURL.append(path: "Library.quest/img/\(imageId).png")
 		if !FileManager.default.fileExists(atPath: fileURL.path) {
 			downloadImage(imageId: imageId)
 		}
